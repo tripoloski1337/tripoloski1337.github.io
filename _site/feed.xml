@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <description>just a student whose love to break things mostly binary , i do programming in web as a backend developer, i'm a bug hunter too.feel free to contact me if you think i can help your company arsalan.dp@gmail.com</description>
+    <link>http://localhost:4000/</link>
+    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Mon, 02 Sep 2019 21:19:55 +0700</pubDate>
+    <lastBuildDate>Mon, 02 Sep 2019 21:19:55 +0700</lastBuildDate>
+    <generator>Jekyll v3.8.5</generator>
+    
+      <item>
+        <title>My CTF final experience</title>
+        <description>
+</description>
+        <pubDate>Mon, 10 Dec 2018 03:03:11 +0700</pubDate>
+        <link>http://localhost:4000/2018/12/10/final-indonesian-cyber-competition/</link>
+        <guid isPermaLink="true">http://localhost:4000/2018/12/10/final-indonesian-cyber-competition/</guid>
+        
+        
+        <category>experience</category>
+        
+      </item>
+    
+  </channel>
+</rss>
