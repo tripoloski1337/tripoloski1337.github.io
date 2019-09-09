@@ -75,7 +75,7 @@ Now the tcache list has [ 0x7ffedaf11040 ].
 We got the control
 </code></pre></div></div>
 
-<p>for another example we will try to exploit this simple program by using tcache poisoning:</p>
+<p>for another example we will try to exploit this simple program, by using tcache poisoning:</p>
 
 <figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="cp">#include &lt;stdio.h&gt;
 #include &lt;stdint.h&gt;
@@ -203,7 +203,7 @@ $r14   : 0x0
 $r15   : 0x0
 </code></pre></div></div>
 
-<p>in this case we can doing GOT overwrite from exit() function to win() function</p>
+<p>in this case we can GOT overwrite from exit() function to win() function</p>
 
 <figure class="highlight"><pre><code class="language-c" data-lang="c">	<span class="k">case</span> <span class="mi">3</span><span class="p">:</span>
 		<span class="n">puts</span><span class="p">(</span><span class="s">"[+] exiting..."</span><span class="p">);</span>
@@ -239,7 +239,7 @@ $r15   : 0x0
 
 <span class="n">r</span><span class="o">.</span><span class="n">interactive</span><span class="p">()</span></code></pre></figure>
 
-<p>after running this python script we can select option 3 to trigger exit() and exit() is not the real exit() function anymore it was win() function since we doing GOT overwrite</p>
+<p>after running this python script we can select option 3 to trigger exit(). and exit() is not the real exit() function anymore it was win() function, because we GOT overwrite it</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[+] Starting local process './tcache_poisoning': pid 28800
 [*] allocating
@@ -263,7 +263,7 @@ $r15   : 0x0
 ctf{y0u_must_b3_a_pwnerrrr!!!!!}
 </code></pre></div></div>
 
-<p>as you can see there’s string <strong><em>ctf{y0u_must_b3_a_pwnerrrr!!!!!}</em></strong> it mean our win() function has called and give us data from file flag.txt you can see what win() actually do here</p>
+<p>as you can see there’s string <strong><em>ctf{y0u_must_b3_a_pwnerrrr!!!!!}</em></strong>. it mean our win() function has been called and give us data from file flag.txt, you can see what win() actually do here</p>
 
 <figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="kt">void</span> <span class="n">win</span><span class="p">(){</span>
 	<span class="kt">char</span> <span class="n">buf</span><span class="p">[</span><span class="n">SZ_FLAG</span><span class="p">];</span>

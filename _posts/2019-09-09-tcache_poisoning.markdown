@@ -155,7 +155,7 @@ this instruction will mov rdx value to rdi. it's mean it will move whatever valu
     $r14   : 0x0
     $r15   : 0x0
 
-in this case we can doing GOT overwrite from exit() function to win() function 
+in this case we can GOT overwrite from exit() function to win() function 
 
 {% highlight c %}
 	case 3:
@@ -197,7 +197,7 @@ r.interactive()
 
 {% endhighlight %}
 
-after running this python script we can select option 3 to trigger exit(). and exit() is not the real exit() function anymore it was win() function, since we doing GOT overwrite 
+after running this python script we can select option 3 to trigger exit(). and exit() is not the real exit() function anymore it was win() function, because we GOT overwrite it
 
 	[+] Starting local process './tcache_poisoning': pid 28800
 	[*] allocating

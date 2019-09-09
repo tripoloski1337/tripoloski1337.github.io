@@ -5,8 +5,8 @@
     <description>just a student whose love to break things mostly binary , i do programming in web as a backend developer, i'm a bug hunter too.feel free to contact me if you think i can help your company arsalan.dp@gmail.com</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 09 Sep 2019 15:53:54 +0700</pubDate>
-    <lastBuildDate>Mon, 09 Sep 2019 15:53:54 +0700</lastBuildDate>
+    <pubDate>Mon, 09 Sep 2019 17:54:07 +0700</pubDate>
+    <lastBuildDate>Mon, 09 Sep 2019 17:54:07 +0700</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
     
       <item>
@@ -33,7 +33,7 @@ Now the tcache list has [ 0x7ffedaf11040 ].
 We got the control
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;for another example we will try to exploit this simple program by using tcache poisoning:&lt;/p&gt;
+&lt;p&gt;for another example we will try to exploit this simple program, by using tcache poisoning:&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span class=&quot;cp&quot;&gt;#include &amp;lt;stdio.h&amp;gt;
 #include &amp;lt;stdint.h&amp;gt;
@@ -161,7 +161,7 @@ $r14   : 0x0
 $r15   : 0x0
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;in this case we can doing GOT overwrite from exit() function to win() function&lt;/p&gt;
+&lt;p&gt;in this case we can GOT overwrite from exit() function to win() function&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;	&lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
 		&lt;span class=&quot;n&quot;&gt;puts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;[+] exiting...&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
@@ -197,7 +197,7 @@ $r15   : 0x0
 
 &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;interactive&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;p&gt;after running this python script we can select option 3 to trigger exit() and exit() is not the real exit() function anymore it was win() function since we doing GOT overwrite&lt;/p&gt;
+&lt;p&gt;after running this python script we can select option 3 to trigger exit(). and exit() is not the real exit() function anymore it was win() function, because we GOT overwrite it&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[+] Starting local process './tcache_poisoning': pid 28800
 [*] allocating
@@ -221,7 +221,7 @@ $r15   : 0x0
 ctf{y0u_must_b3_a_pwnerrrr!!!!!}
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;as you can see there’s string &lt;strong&gt;&lt;em&gt;ctf{y0u_must_b3_a_pwnerrrr!!!!!}&lt;/em&gt;&lt;/strong&gt; it mean our win() function has called and give us data from file flag.txt you can see what win() actually do here&lt;/p&gt;
+&lt;p&gt;as you can see there’s string &lt;strong&gt;&lt;em&gt;ctf{y0u_must_b3_a_pwnerrrr!!!!!}&lt;/em&gt;&lt;/strong&gt;. it mean our win() function has been called and give us data from file flag.txt, you can see what win() actually do here&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;win&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
 	&lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SZ_FLAG&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
