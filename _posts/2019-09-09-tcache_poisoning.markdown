@@ -220,7 +220,7 @@ after running this python script we can select option 3 to trigger exit() and ex
 	[+] exiting...
 	ctf{y0u_must_b3_a_pwnerrrr!!!!!}
 
-as you can see there's string ***ctf{y0u_must_b3_a_pwnerrrr!!!!!}*** it mean our win() function has called and give us data from file flag.txt you can see what win() actually do here
+as you can see there's string ***ctf{y0u_must_b3_a_pwnerrrr!!!!!}*** it mean our win() function has been called and give us data from file flag.txt you can see what win() actually do here
 {% highlight c %}
 void win(){
 	char buf[SZ_FLAG];
