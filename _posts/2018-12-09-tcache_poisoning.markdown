@@ -160,7 +160,7 @@ in this case we can doing GOT overwrite from exit() function to win() function
 {% highlight c %}
 	case 3:
 		puts("[+] exiting...");
-		exit(0); <-- our goal to changed it to win()
+		exit(0); <-- our goal to change it to win()
 		break;
 {% endhighlight %}
 
