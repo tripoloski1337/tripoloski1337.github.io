@@ -27,7 +27,7 @@ and tcache poisoning is a technique to poison Tcache feature in glibc-2.26. for 
 	2nd malloc(128): 0x7ffedaf11040
 	We got the control
 
-for another example we will try to exploit this simple program by using tcache poisoning:
+for another example we will try to exploit this simple program, by using tcache poisoning:
 
 {% highlight c %}
 #include <stdio.h>
@@ -197,7 +197,7 @@ r.interactive()
 
 {% endhighlight %}
 
-after running this python script we can select option 3 to trigger exit() and exit() is not the real exit() function anymore it was win() function since we doing GOT overwrite 
+after running this python script we can select option 3 to trigger exit(). and exit() is not the real exit() function anymore it was win() function, since we doing GOT overwrite 
 
 	[+] Starting local process './tcache_poisoning': pid 28800
 	[*] allocating
@@ -220,7 +220,7 @@ after running this python script we can select option 3 to trigger exit() and ex
 	[+] exiting...
 	ctf{y0u_must_b3_a_pwnerrrr!!!!!}
 
-as you can see there's string ***ctf{y0u_must_b3_a_pwnerrrr!!!!!}*** it mean our win() function has been called and give us data from file flag.txt you can see what win() actually do here
+as you can see there's string ***ctf{y0u_must_b3_a_pwnerrrr!!!!!}***. it mean our win() function has been called and give us data from file flag.txt, you can see what win() actually do here
 {% highlight c %}
 void win(){
 	char buf[SZ_FLAG];
