@@ -5,8 +5,8 @@
     <description>just a student whose love to break things mostly binary , i do programming in web as a backend developer, i'm a bug hunter too.feel free to contact me if you think i can help your company arsalan.dp@gmail.com</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 09 Sep 2019 15:46:30 +0700</pubDate>
-    <lastBuildDate>Mon, 09 Sep 2019 15:46:30 +0700</lastBuildDate>
+    <pubDate>Mon, 09 Sep 2019 15:53:54 +0700</pubDate>
+    <lastBuildDate>Mon, 09 Sep 2019 15:53:54 +0700</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
     
       <item>
@@ -165,7 +165,7 @@ $r15   : 0x0
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;	&lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
 		&lt;span class=&quot;n&quot;&gt;puts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;[+] exiting...&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;exit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;--&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;our&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;goal&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;changed&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;win&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;exit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;--&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;our&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;goal&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;change&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;win&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
 		&lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;p&gt;to make it more clear and reliable i made a python script to exploit this binary&lt;/p&gt;
@@ -234,9 +234,9 @@ ctf{y0u_must_b3_a_pwnerrrr!!!!!}
 	&lt;span class=&quot;n&quot;&gt;puts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 </description>
-        <pubDate>Mon, 10 Dec 2018 03:03:11 +0700</pubDate>
-        <link>http://localhost:4000/2018/12/10/tcache_poisoning/</link>
-        <guid isPermaLink="true">http://localhost:4000/2018/12/10/tcache_poisoning/</guid>
+        <pubDate>Mon, 09 Sep 2019 10:59:00 +0700</pubDate>
+        <link>http://localhost:4000/2019/09/09/tcache_poisoning/</link>
+        <guid isPermaLink="true">http://localhost:4000/2019/09/09/tcache_poisoning/</guid>
         
         
         <category>experience</category>

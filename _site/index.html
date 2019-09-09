@@ -50,7 +50,7 @@
 	<article class="post">
 
 		
-			<h1><a href="/2018/12/10/tcache_poisoning/">Tcache Poisoning [heap exploitation]</a></h1>
+			<h1><a href="/2019/09/09/tcache_poisoning/">Tcache Poisoning [heap exploitation]</a></h1>
 		
 
 		<div class="post-content"><h1 id="tcache-poisoning">Tcache Poisoning</h1>
@@ -207,7 +207,7 @@ $r15   : 0x0
 
 <figure class="highlight"><pre><code class="language-c" data-lang="c">	<span class="k">case</span> <span class="mi">3</span><span class="p">:</span>
 		<span class="n">puts</span><span class="p">(</span><span class="s">"[+] exiting..."</span><span class="p">);</span>
-		<span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span> <span class="o">&lt;--</span> <span class="n">our</span> <span class="n">goal</span> <span class="n">to</span> <span class="n">changed</span> <span class="n">it</span> <span class="n">to</span> <span class="n">win</span><span class="p">()</span>
+		<span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span> <span class="o">&lt;--</span> <span class="n">our</span> <span class="n">goal</span> <span class="n">to</span> <span class="n">change</span> <span class="n">it</span> <span class="n">to</span> <span class="n">win</span><span class="p">()</span>
 		<span class="k">break</span><span class="p">;</span></code></pre></figure>
 
 <p>to make it more clear and reliable i made a python script to exploit this binary</p>
