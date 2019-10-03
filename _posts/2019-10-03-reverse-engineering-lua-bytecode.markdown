@@ -153,4 +153,7 @@ print flag
 
 and we got our flag 
 
-<img src="/images/2019-10-03-174334_664x273_scrot.png" class="center" style="width: 500px;">
+```
+$ python mooncode.py
+gemastik12{reversing_the_moon}
+```
