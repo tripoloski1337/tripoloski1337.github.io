@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Reverse engineering lua code inside an elf binary"
+title:  "Reverse engineering lua bytecode inside an elf binary"
 date:   2019-09-09 03:59:00
 categories: ctf
 ---
