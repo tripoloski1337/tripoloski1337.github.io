@@ -53,7 +53,11 @@ here's the value of code variable
 
 as you can see there's "Luas" string inside this memory , so we can just dump or export this code variable using Ghidra. and here's the lua bytecode we successfully dump 
 
-<img src="/images/2019-10-03-171529_545x57_scrot.png" class='center'>
+```
+┌─[tripoloski]──[~/code/ctf/gemastik2019/reversing/decode-me]──[pwn-box]: $
+└────╼ >> file .data_\[00104060\,001046d5\]_1217343673003918772.tmp.bin
+.data_[00104060,001046d5]_1217343673003918772.tmp.bin: Lua bytecode,
+```
 
 since this is a Lua bytecode file, so we can get the original source code by decompile it using [unluac](https://sourceforge.net/projects/unluac/) , and here's the source code 
 
