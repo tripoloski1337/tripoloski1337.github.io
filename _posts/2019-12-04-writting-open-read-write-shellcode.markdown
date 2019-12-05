@@ -50,7 +50,7 @@ so it's time to write some asm  , before we write the exploit we have to see sys
 ## Exploit
 
 We have to set eax register to 0x5 and ebx to our file path and more
-so firstly to open the file i make assembly code, like this
+so firstly to open the file, i make assembly code, like this
 
 <img src="/images/2019-12-04-144810_250x246_scrot.png">
 
