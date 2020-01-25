@@ -1,9 +1,10 @@
 ---
 layout: default
-title: Welcome 
+title: Welcome
 ---
 
-{% for post in paginator.posts %}
+{% assign sorted = (paginator.posts| sort: 'date')  %}
+{% for post in sorted %}
 
 	<article class="post">
 
