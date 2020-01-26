@@ -33,7 +33,7 @@ after open it on ida , i found some function
 
 let's see ```check_passwd()``` function
 
-<img src="/images/2020-01-25-230713_576x439_scrot.png" />
+<img src="/images/secure-login/2020-01-26-204900_541x422_scrot.png" />
 
 looks like our input will compare with v17 , i assume v17 and v18 is one variable
 since this is md5
