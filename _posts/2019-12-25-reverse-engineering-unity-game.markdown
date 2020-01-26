@@ -3,6 +3,8 @@ layout: post
 title:  "Reverse engineering unity game"
 date:   2019-09-09 03:59:00
 categories: ctf
+tags: ctf-writeup reversing
+description: this article explains about ctf writeup.
 ---
 
 # writeup xmas-ctf 2019 lapland mission

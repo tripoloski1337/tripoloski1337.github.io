@@ -3,6 +3,8 @@ layout: post
 title:  "Reverse engineering lua bytecode inside an elf binary"
 date:   2019-09-09 03:59:00
 categories: ctf
+description: this article explains about ctf writeup.
+tags: reversing lua ctf-writeup
 ---
 
 # writeup Gemastik12 CTF [decode-me]
@@ -14,9 +16,9 @@ this is a ctf competition challenge. in this blog post, i will explain how i sol
 this is the information of this binary
 
 ```
-mooncode: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), 
-dynamically linked, interpreter /lib64/l, for GNU/Linux 3.2.0, 
-BuildID[sha1]=c0e15ca22b562c60f5d4535eea61d26157ecdde7, 
+mooncode: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV),
+dynamically linked, interpreter /lib64/l, for GNU/Linux 3.2.0,
+BuildID[sha1]=c0e15ca22b562c60f5d4535eea61d26157ecdde7,
 not stripped
 ```
 
@@ -38,7 +40,7 @@ int main(int param_1)
 
   _local_AL_15 = luaL_newstate();
   luaL_openlibs(_local_AL_15);
-  local_28 = &code; // <--- this is the lua bytecode was stored 
+  local_28 = &code; // <--- this is the lua bytecode was stored
   lua_load(_local_AL_15,readMemFile,&local_28,&DAT_00102004,0);
   lua_pcallk(_local_AL_15,0,0,0,0,0);
   return 0;
@@ -51,7 +53,7 @@ here's the value of code variable
 
 <img src="/images/2019-10-03-170254_320x418_scrot.png" class="center" />
 
-as you can see there's "Luas" string inside this memory , so we can just dump or export this code variable using Ghidra. and here's the lua bytecode we successfully dump 
+as you can see there's "Luas" string inside this memory , so we can just dump or export this code variable using Ghidra. and here's the lua bytecode we successfully dump
 
 ```
 ┌─[tripoloski]──[~/code/ctf/gemastik2019/reversing/decode-me]──[pwn-box]: $
@@ -59,7 +61,7 @@ as you can see there's "Luas" string inside this memory , so we can just dump or
 .data_[00104060,001046d5]_1217343673003918772.tmp.bin: Lua bytecode,
 ```
 
-since this is a Lua bytecode file, so we can get the original source code by decompile it using [unluac](https://sourceforge.net/projects/unluac/) , and here's the source code 
+since this is a Lua bytecode file, so we can get the original source code by decompile it using [unluac](https://sourceforge.net/projects/unluac/) , and here's the source code
 
 {% highlight lua %}
 io.write("Flag: ")
@@ -155,7 +157,7 @@ print flag
 {% endhighlight %}
 
 
-and we got our flag 
+and we got our flag
 
 ```
 $ python mooncode.py

