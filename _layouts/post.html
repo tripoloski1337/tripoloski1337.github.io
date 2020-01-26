@@ -10,6 +10,12 @@ layout: default
       <a class="tag" href="/tag/{{ tag }}/">{{ tag }}</a>
       {% endfor %}
   </div>
+  {% else %}
+  <div class="post-tags">
+      {% for tag in page.tags %}
+      <a class="tag" href="/tag/{{ tag }}/">{{ tag }}</a>
+      {% endfor %}
+  </div>
   {% endif %}
   <div class="post-date">Published on {{ page.date | date_to_string }}</div>
   {% if page.description != null %}

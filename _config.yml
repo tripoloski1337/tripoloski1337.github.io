@@ -2,8 +2,8 @@ title: tripoloski blog
 author: arsalan
 email: arsalan.dp@gmail.com
 description: > # this means to ignore newlines until "show_exerpts:"
-    Hello i am arsalan , i blog about cyber security,
-    ctf writeup , web development , and more about tech. born and raised in 
+    Hello i am arsalan. information system student, i blog about cyber security,
+    ctf writeup , web development , and more about tech. born and raised in
     indonesia , currently living in indonesia
 show_excerpts: false # set to true to show excerpts on the homepage
 
@@ -31,6 +31,9 @@ dash:
     - url: https://github.com/tripoloski1337
       icon: github-square
       color: purple
+    - url: https://id.linkedin.com/in/arsalan-diponegoro
+      icon: linkedin
+      color: yellow
 
 # Build settings
 theme: jekyll-dash
