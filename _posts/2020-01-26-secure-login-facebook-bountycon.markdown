@@ -3,6 +3,7 @@ layout: post
 title:  "Secure login facebook bountycon 2020"
 date:   2020-01-26 07:59:00
 tags: ctf-writeup pwn
+description: this article explains about secure-login from bountycon 2020.
 categories: ctf
 ---
 
