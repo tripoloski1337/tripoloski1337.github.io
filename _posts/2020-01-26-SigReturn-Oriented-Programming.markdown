@@ -4,7 +4,7 @@ title:  "SigReturn Oriented Programming"
 date:   2020-01-26 #13:52:01
 categories: ctf
 description: this article explains about SigReturn Oriented Programming.
-tags: pwn ret2libc stack ctf-writeup
+tags: pwn srop stack ctf-writeup
 ---
 
 #Secure-ROP
