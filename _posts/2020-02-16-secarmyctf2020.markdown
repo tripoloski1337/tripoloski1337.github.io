@@ -1,0 +1,1157 @@
+---
+layout: post
+title:  "Writeup CHRIST (Deemed to be University) CTF"
+date:   2020-02-16 #13:52:01
+categories: ctf
+description: this article explains about my writeup.
+tags: ctf writeup
+---
+
+on 15 to 16 february 2020, i compete on CHRIST (Deemed to be University) CTF organized by
+secarmy team and got 9th place
+
+
+<img src="/images/christctf/2020-02-16-194601_1060x713_scrot.png"/>
+
+# N00b_R3v / reversing
+### 100 point | 132 solve
+
+description :
+```
+Just Debug It >3
+Flag Format ; secarmy{flag}
+Author : Elemental X
+```
+
+solution :
+<img src="/images/christctf/2020-02-16-195126_362x105_scrot.png" />
+
+flag : secarmy{n00b_rev3rs3r}
+
+
+# Proper Algo / reversing
+### 500 point | 54 solve
+
+description :
+```
+So, can you beat my Proper Algo?
+You must be good at assembly! :)
+nc 178.128.174.25 7331
+Author: z0m31en7
+```
+
+solution :
+there are several function
+
+
+<img src='/images/christctf/2020-02-16-200342_113x169_scrot.png' style='width:200px;'/>
+
+main :
+
+{% highlight C %}
+int __cdecl main(int argc, const char **argv, const char **envp)
+{
+  int result; // eax
+  __int64 v4; // [rsp+8h] [rbp-28h]
+  char filename[8]; // [rsp+17h] [rbp-19h]
+  FILE *stream; // [rsp+20h] [rbp-10h]
+  int v7; // [rsp+28h] [rbp-8h]
+  char i; // [rsp+2Fh] [rbp-1h]
+
+  strcpy(filename, "flag.txt");
+  puts(&s);
+  puts(&byte_2058);
+  puts(&byte_20A0);
+  puts("\t\t~By z0m31en7\n");
+  puts("Enter The License Key:");
+  fflush(_bss_start);
+  __isoc99_scanf("%lld", &v4);
+  v7 = start(v4);
+  if ( v7 == 100796628 )
+  {
+    puts("You are a Worthy one, Here is your flag:");
+    stream = fopen(filename, modes);
+    if ( !stream )
+    {
+      puts("Cannot open flag.txt, are you entering the key on the server? ");
+      exit(0);
+    }
+    for ( i = fgetc(stream); i != -1; i = fgetc(stream) )
+      putchar(i);
+    fclose(stream);
+    result = 0;
+  }
+  else
+  {
+    puts("WRONG!! you can't beat my Proper Algo ;)");
+    result = 0;
+  }
+  return result;
+}
+{% endhighlight %}
+
+start:
+{% highlight c %}
+__int64 __fastcall start(__int64 a1)
+{
+  return (signed int)z(a1);
+}
+{% endhighlight %}
+
+z:
+{% highlight c %}
+__int64 __fastcall z(__int64 a1)
+{
+  return (signed int)o(a1 + 290027);
+}
+{% endhighlight %}
+
+o:
+{% highlight c %}
+__int64 __fastcall o(__int64 a1)
+{
+  return (signed int)m(a1 + 323302);
+}
+{% endhighlight %}
+
+m:
+{% highlight c %}
+__int64 __fastcall m(__int64 a1)
+{
+  return (signed int)b(a1 + 101483);
+}
+{% endhighlight %}
+
+b:
+{% highlight c %}
+__int64 __fastcall b(__int64 a1)
+{
+  return (signed int)i(a1 + 201092);
+}
+{% endhighlight %}
+
+i:
+{% highlight c %}
+__int64 __fastcall i(__int64 a1)
+{
+  return (signed int)e(a1 + 944);
+}
+{% endhighlight %}
+
+e:
+{% highlight c %}
+__int64 __fastcall e(__int64 a1)
+{
+  return (signed int)n(a1 + 59);
+}
+{% endhighlight %}
+
+n:
+{% highlight c %}
+__int64 __fastcall n(__int64 a1)
+{
+  return (signed int)t(a1 - 34);
+}
+{% endhighlight %}
+
+t:
+{% highlight c %}
+signed __int64 __fastcall t(__int64 a1)
+{
+  return a1 - 27 + 2999;
+}
+{% endhighlight %}
+
+we just need to follow the constraint :
+```
+0x60208D4 - 0x46CEB - 323302 - 101483 - 201092 - 944 - 59 - 34 + 27 - 2999 + 68
+```
+and send the result
+
+<img src="/images/christctf/2020-02-16-201228_420x155_scrot.png" />
+
+flag : secarmy{pr0p3er_alg05_@re_mu57}
+
+# ENCRYPTO X / Miscellaneous
+### 60 point | 70 solve
+
+Description:
+```
+One of my friend sent me this binary with two keys "ENCODE" & "DECODE"
+and told me the keys are case-sensitive . I am unable to find the hidden
+message inside , can you help me out ? :(
+Flag Format :- secarmy{flag}
+```
+
+Solution:
+
+this is the pseudo code for main function
+
+
+{% highlight C++ %}
+int __cdecl main(int argc, const char **argv, const char **envp)
+{
+  int v3; // eax
+  int v4; // eax
+  int v5; // eax
+  int v6; // eax
+  int v7; // eax
+  int v8; // eax
+  int v9; // eax
+  int v10; // eax
+  int v11; // eax
+  int v12; // eax
+  int v13; // eax
+  int v14; // eax
+  int v15; // eax
+  int v16; // eax
+  int v17; // eax
+  int v18; // eax
+  int v19; // eax
+  int v20; // eax
+  int v21; // eax
+  int v22; // eax
+  int v23; // eax
+  int v24; // eax
+  int v25; // eax
+  int v26; // eax
+  int v27; // eax
+  int v28; // eax
+  int v29; // eax
+  int v30; // eax
+  int v31; // eax
+  int v32; // eax
+  char s1; // [esp+32h] [ebp-96h]
+  char v35; // [esp+3Ah] [ebp-8Eh]
+  char v36; // [esp+42h] [ebp-86h]
+  char v37; // [esp+4Ah] [ebp-7Eh]
+  char v38; // [esp+52h] [ebp-76h]
+  char v39; // [esp+5Ah] [ebp-6Eh]
+  char v40; // [esp+62h] [ebp-66h]
+  char v41; // [esp+6Ah] [ebp-5Eh]
+  char v42; // [esp+72h] [ebp-56h]
+  char v43; // [esp+7Ah] [ebp-4Eh]
+  char s2[4]; // [esp+82h] [ebp-46h]
+  char v45; // [esp+8Ah] [ebp-3Eh]
+  char v46[4]; // [esp+8Bh] [ebp-3Dh]
+  char v47; // [esp+93h] [ebp-35h]
+  char v48; // [esp+94h] [ebp-34h]
+  char v49; // [esp+9Dh] [ebp-2Bh]
+  char v50; // [esp+A6h] [ebp-22h]
+  char v51; // [esp+A7h] [ebp-21h]
+  char v52; // [esp+A8h] [ebp-20h]
+  char v53; // [esp+A9h] [ebp-1Fh]
+  char v54; // [esp+AAh] [ebp-1Eh]
+  char v55; // [esp+ABh] [ebp-1Dh]
+  char v56; // [esp+ACh] [ebp-1Ch]
+  char v57; // [esp+ADh] [ebp-1Bh]
+  char v58; // [esp+AEh] [ebp-1Ah]
+  char v59; // [esp+AFh] [ebp-19h]
+  char v60; // [esp+B0h] [ebp-18h]
+  char v61; // [esp+B1h] [ebp-17h]
+  char v62; // [esp+B2h] [ebp-16h]
+  char v63; // [esp+B3h] [ebp-15h]
+  char v64; // [esp+B4h] [ebp-14h]
+  char v65; // [esp+B5h] [ebp-13h]
+  char v66; // [esp+B6h] [ebp-12h]
+  char v67; // [esp+B7h] [ebp-11h]
+  char v68; // [esp+B8h] [ebp-10h]
+  char v69; // [esp+B9h] [ebp-Fh]
+  char v70; // [esp+BAh] [ebp-Eh]
+  char v71; // [esp+BBh] [ebp-Dh]
+  unsigned int v72; // [esp+BCh] [ebp-Ch]
+
+  v72 = __readgsdword(0x14u);
+  strcpy(s2, "ENCODE");
+  v45 = 0;
+  strcpy(v46, "DECODE");
+  v47 = '\0';
+  v60 = 'A';
+  v61 = '-';
+  v62 = '+';
+  v63 = '!';
+  v64 = '@';
+  v65 = '$';
+  v66 = 'b';
+  v67 = '4';
+  v68 = '0';
+  v69 = '9';
+  v70 = 'X';
+  v71 = 'D';
+  v50 = 'e';
+  v51 = 'n';
+  v52 = 'c';
+  v53 = 'o';
+  v54 = 'd';
+  v55 = 'e';
+  v56 = 'b';
+  v57 = 'i';
+  v58 = 't';
+  v59 = 's';
+  v3 = std::operator<<<std::char_traits<char>>(&std::cout, "What do you want  : ");
+  std::ostream::operator<<(v3, &std::endl<char,std::char_traits<char>>);
+  std::operator>><char,std::char_traits<char>>(&edata, &s1);
+  if ( !strcmp(&s1, s2) )
+    v4 = std::operator<<<std::char_traits<char>>(&std::cout, v50);
+  else
+    v4 = std::operator<<<std::char_traits<char>>(&std::cout, &v60);
+  std::ostream::operator<<(v4, &std::endl<char,std::char_traits<char>>);
+  v5 = std::operator<<<std::char_traits<char>>(&std::cout, "What do you want : ");
+  std::ostream::operator<<(v5, &std::endl<char,std::char_traits<char>>);
+  std::operator>><char,std::char_traits<char>>(&edata, &v35);
+  if ( !strcmp(&v35, v46) )
+  {
+    v6 = std::operator<<<std::char_traits<char>>(&std::cout, &v60);
+    std::ostream::operator<<(v6, &std::endl<char,std::char_traits<char>>);
+  }
+  else
+  {
+    v7 = std::operator<<<std::char_traits<char>>(&std::cout, &v60);
+    std::ostream::operator<<(v7, &std::endl<char,std::char_traits<char>>);
+  }
+  v8 = std::operator<<<std::char_traits<char>>(&std::cout, "What do you want :");
+  std::ostream::operator<<(v8, &std::endl<char,std::char_traits<char>>);
+  std::operator>><char,std::char_traits<char>>(&edata, &v36);
+  if ( !strcmp(&v36, s2) )
+    v9 = std::operator<<<std::char_traits<char>>(&std::cout, v51);
+  else
+    v9 = std::operator<<<std::char_traits<char>>(&std::cout, &v60);
+  std::ostream::operator<<(v9, &std::endl<char,std::char_traits<char>>);
+  v10 = std::operator<<<std::char_traits<char>>(&std::cout, "What do you want :");
+  std::ostream::operator<<(v10, &std::endl<char,std::char_traits<char>>);
+  std::operator>><char,std::char_traits<char>>(&edata, &v37);
+  if ( !strcmp(&v37, v46) )
+  {
+    v11 = std::operator<<<std::char_traits<char>>(&std::cout, &v60);
+    std::ostream::operator<<(v11, &std::endl<char,std::char_traits<char>>);
+  }
+  else
+  {
+    v12 = std::operator<<<std::char_traits<char>>(&std::cout, &v60);
+    std::ostream::operator<<(v12, &std::endl<char,std::char_traits<char>>);
+  }
+  v13 = std::operator<<<std::char_traits<char>>(&std::cout, "What do you want :");
+  std::ostream::operator<<(v13, &std::endl<char,std::char_traits<char>>);
+  std::operator>><char,std::char_traits<char>>(&edata, &v38);
+  if ( !strcmp(&v38, s2) )
+    v14 = std::operator<<<std::char_traits<char>>(&std::cout, v52);
+  else
+    v14 = std::operator<<<std::char_traits<char>>(&std::cout, &v60);
+  std::ostream::operator<<(v14, &std::endl<char,std::char_traits<char>>);
+  v15 = std::operator<<<std::char_traits<char>>(&std::cout, "What do you want : ");
+  std::ostream::operator<<(v15, &std::endl<char,std::char_traits<char>>);
+  std::operator>><char,std::char_traits<char>>(&edata, &v39);
+  if ( !strcmp(&v39, v46) )
+  {
+    v16 = std::operator<<<std::char_traits<char>>(&std::cout, &v60);
+    std::ostream::operator<<(v16, &std::endl<char,std::char_traits<char>>);
+  }
+  else
+  {
+    v17 = std::operator<<<std::char_traits<char>>(&std::cout, &v60);
+    std::ostream::operator<<(v17, &std::endl<char,std::char_traits<char>>);
+  }
+  v18 = std::operator<<<std::char_traits<char>>(&std::cout, "What do you want :");
+  std::ostream::operator<<(v18, &std::endl<char,std::char_traits<char>>);
+  std::operator>><char,std::char_traits<char>>(&edata, &v40);
+  if ( !strcmp(&v40, s2) )
+    v19 = std::operator<<<std::char_traits<char>>(&std::cout, v53);
+  else
+    v19 = std::operator<<<std::char_traits<char>>(&std::cout, &v60);
+  std::ostream::operator<<(v19, &std::endl<char,std::char_traits<char>>);
+  v20 = std::operator<<<std::char_traits<char>>(&std::cout, "What do you want :");
+  std::ostream::operator<<(v20, &std::endl<char,std::char_traits<char>>);
+  std::operator>><char,std::char_traits<char>>(&edata, &v41);
+  if ( !strcmp(&v41, v46) )
+    v21 = std::operator<<<std::char_traits<char>>(&std::cout, v54);
+  else
+    v21 = std::operator<<<std::char_traits<char>>(&std::cout, &v60);
+  std::ostream::operator<<(v21, &std::endl<char,std::char_traits<char>>);
+  v22 = std::operator<<<std::char_traits<char>>(&std::cout, "What do you want :");
+  std::ostream::operator<<(v22, &std::endl<char,std::char_traits<char>>);
+  std::operator>><char,std::char_traits<char>>(&edata, &v42);
+  if ( !strcmp(&v42, s2) )
+  {
+    v23 = std::operator<<<std::char_traits<char>>(&std::cout, &v60);
+    std::ostream::operator<<(v23, &std::endl<char,std::char_traits<char>>);
+  }
+  else
+  {
+    v24 = std::operator<<<std::char_traits<char>>(&std::cout, &v60);
+    std::ostream::operator<<(v24, &std::endl<char,std::char_traits<char>>);
+  }
+  v25 = std::operator<<<std::char_traits<char>>(&std::cout, "What do you want :");
+  std::ostream::operator<<(v25, &std::endl<char,std::char_traits<char>>);
+  std::operator>><char,std::char_traits<char>>(&edata, &v43);
+  if ( !strcmp(&v43, v46) )
+    v26 = std::operator<<<std::char_traits<char>>(&std::cout, v55);
+  else
+    v26 = std::operator<<<std::char_traits<char>>(&std::cout, &v60);
+  std::ostream::operator<<(v26, &std::endl<char,std::char_traits<char>>);
+  v27 = std::operator<<<std::char_traits<char>>(&std::cout, "What do you want :");
+  std::ostream::operator<<(v27, &std::endl<char,std::char_traits<char>>);
+  std::operator>><char,std::char_traits<char>>(&edata, &v48);
+  if ( !strcmp(&v48, s2) )
+  {
+    v28 = std::operator<<<std::char_traits<char>>(&std::cout, &v60);
+    std::ostream::operator<<(v28, &std::endl<char,std::char_traits<char>>);
+  }
+  else
+  {
+    v29 = std::operator<<<std::char_traits<char>>(&std::cout, &v60);
+    std::ostream::operator<<(v29, &std::endl<char,std::char_traits<char>>);
+  }
+  v30 = std::operator<<<std::char_traits<char>>(&std::cout, "What do you want :");
+  std::ostream::operator<<(v30, &std::endl<char,std::char_traits<char>>);
+  std::operator>><char,std::char_traits<char>>(&edata, &v49);
+  if ( !strcmp(&v49, s2) )
+    v31 = std::operator<<<std::char_traits<char>>(&std::cout, v56);
+  else
+    v31 = std::operator<<<std::char_traits<char>>(&std::cout, &v60);
+  std::ostream::operator<<(v31, &std::endl<char,std::char_traits<char>>);
+  v32 = std::operator<<<std::char_traits<char>>(&std::cout, "its");
+  std::ostream::operator<<(v32, &std::endl<char,std::char_traits<char>>);
+  return 0;
+}
+{% endhighlight %}
+
+flag : secarmy{encodebits}
+
+# Dumpster Diving / Miscellaneous
+### 100 point | 65 solve
+
+Description :
+```
+Always follow the format , if you understand the format,
+the flag is all yours , beware of fake flags.
+To know more about it :- https://searchsecurity.techtarget.com/definition/dumpster-diving
+Flag Format :- secarmy{flag}
+```
+
+Solution :
+decode all gibber<N>.txt
+
+
+<img src="/images/christctf/2020-02-16-202728_362x426_scrot.png" />
+
+
+```
+key : 1010111113
+```
+
+
+
+<img src="/images/christctf/2020-02-16-202914_363x81_scrot.png" />
+
+flag : secarmy{5656575656259}
+
+
+# Multiple Ways / Miscellaneous
+### 200 point | 41 solve
+
+Description :
+```
+I love various encoding schema like Enigma and what not ,
+also I feel encoding my keys are safe . Can you crack them ?
+Flag Format :- secarmy{flag}
+```
+
+Solution :
+
+Open binary on ida , take a look on ```realflag()``` function
+
+{% highlight C++ %}
+__int64 realflag(void)
+{
+  __int64 v0; // rax
+  __int64 v1; // rax
+  const char *v2; // rsi
+  __int64 v3; // rax
+  __int64 v4; // rax
+  char s1; // [rsp+0h] [rbp-80h]
+  char s2[8]; // [rsp+15h] [rbp-6Bh]
+  __int64 v8; // [rsp+20h] [rbp-60h]
+  __int64 v9; // [rsp+28h] [rbp-58h]
+  int v10; // [rsp+30h] [rbp-50h]
+  char v11; // [rsp+34h] [rbp-4Ch]
+  char v12; // [rsp+40h] [rbp-40h]
+  char v13; // [rsp+6Bh] [rbp-15h]
+  int v14; // [rsp+6Ch] [rbp-14h]
+
+  std::allocator<char>::allocator(&v13);
+  std::__cxx11::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string(&v12, "0xbbbbbbbbb", &v13);
+  std::allocator<char>::~allocator(&v13);
+  v8 = 'fymraces'; // <---- this is the flag
+  v9 = '@cyllani'; // <---- this is the flag
+  v10 = 'rutp'; // <---- this is the flag
+  v11 = 51; // <---- this is the flag
+  strcpy(s2, "SECARMYCTF");
+  std::operator<<<std::char_traits<char>>(&std::cout, "Enter your key :");
+  std::operator>><char,std::char_traits<char>>(&std::cin, &s1);
+  v14 = strcmp(&s1, s2);
+  if ( v14 )
+  {
+    v3 = std::operator<<<std::char_traits<char>>(&std::cout, "Fooled");
+    v4 = std::operator<<<char,std::char_traits<char>,std::allocator<char>>(v3, &v12);
+    std::ostream::operator<<(v4, &std::endl<char,std::char_traits<char>>);
+    v2 = "Not Pwned!";
+    std::operator<<<std::char_traits<char>>(&std::cout, "Not Pwned!");
+  }
+  else
+  {
+    v0 = std::operator<<<std::char_traits<char>>(&std::cout, "Here is your flag: ");
+    v1 = std::operator<<<std::char_traits<char>>(v0, &v8);
+    v2 = (const char *)&std::endl<char,std::char_traits<char>>;
+    std::ostream::operator<<(v1, &std::endl<char,std::char_traits<char>>);
+  }
+  return std::__cxx11::basic_string<char,std::char_traits<char>,std::allocator<char>>::~basic_string(&v12, v2);
+}
+{% endhighlight %}
+
+flag : secarmy{finallyc@ptur3}
+
+# CrackOut / Miscellaneous
+### 200 point | 33 solve
+
+Description :
+```
+Check out each & every letter :) , key itself is the flag
+Flag Format:- secarmy{flag}
+```
+
+Solution :
+
+
+
+i made a script to brute wearesecarmy.zip
+
+
+{% highlight python %}
+import zipfile
+
+
+def main():
+	"""
+	Zipfile password cracker using a brute-force dictionary attack
+	"""
+	zipfilename = 'wearesecarmy.zip'
+	dictionary = 'word'
+
+	password = None
+	zip_file = zipfile.ZipFile(zipfilename)
+	with open(dictionary, 'r') as f:
+		for line in f.readlines():
+			password = line.strip('\n')
+			try:
+				zip_file.extractall(pwd=password)
+				password = 'Password found: %s' % password
+			except:
+				pass
+	print password
+
+if __name__ == '__main__':
+	main()
+
+{% endhighlight %}
+
+
+and use ```pass.txt``` as the wordlist
+
+```
+curabitur
+vitae
+nunc
+sed
+...
+...
+...
+...
+sed
+arcu
+vestibulumi
+```
+
+<img src="/images/christctf/2020-02-16-204200_348x49_scrot.png" />
+
+
+flag : secarmy{vestibulumi}
+
+
+# UnderTheMines / Miscellaneous
+### 500 point | 97 solve
+
+Description :
+```
+Howdy Pirate!! Ready For Some OldSchool Fun?
+Here It is: nc 178.128.174.25 2341
+```
+
+Solution :
+
+this is just minesweeper , just play the game
+```
+Current Status of Board :
+    0 1 2 3 4 5 6 7 8
+
+0   1 - 3 - 4 - - 1 0
+1   1 1 3 - - - 3 1 0
+2   0 0 1 1 2 1 1 0 0
+3   1 1 0 0 0 0 0 1 1
+4   - 1 1 1 1 0 0 1 -
+5   1 1 1 - 1 0 0 1 1
+6   0 0 1 1 1 0 0 0 0
+7   0 0 0 0 0 0 0 0 0
+8   0 0 0 0 0 0 0 0 0
+Enter your move, (row[space]column) -> 1
+4
+
+You Won Pirate!! here, take the flag: secarmy{th3_cl@551c_m1n3sw33per}
+
+```
+
+flag : secarmy{th3_cl@551c_m1n3sw33per}
+
+
+# E-Digger / OSINT
+### 200 point | 82 solve
+
+Description :
+
+```
+Hey there , our team member just found his new domain name
+but I am not sure if I should email through it . Please check out .
+http://umairnehri.me/
+Flag Format :- secarmy {flag}
+```
+
+Solution :
+
+i use https://dnschecker.org/ to get the flag
+
+
+<img src="/images/christctf/2020-02-16-204735_471x428_scrot.png" />
+
+flag : secarmy{$pf_r3c0rd$_@1n7_b0r1ng_r1gh7?}
+
+
+
+# The Customer / Web
+### 100 point | 61 solve
+
+Description :
+```
+Hey, I just joined a cookie store but I think I won't be able
+to perform the job which had been ordered by my manager.
+Please help me out!
+https://labs.sec.army/customer/
+```
+
+Solution :
+
+i use curl command to set order cookie
+```
+curl --header "Cookie: order=100" https://labs.sec.army/customer/
+```
+<img src="/images/christctf/2020-02-16-205549_680x236_scrot.png" />
+
+flag : secarmy{h3r3s_s0m3_fr33_c00k13s_f0r_y0u}
+
+
+# The Classic User Panel / Web
+### 100 point | 25 solve
+
+Description :
+```
+Hey looks like the User Panel of my store is pretty
+outdated and is sort of vulnerable.Go have some fun out there ;)
+https://labs.sec.army/userpanel/
+```
+
+Solution :
+just trigger xss with hi
+```
+<script>alert('hi')</script>
+```
+
+<img src="/images/christctf/2020-02-16-205757_1035x315_scrot.png" />
+
+flag : secarmy{l0ng_l1v3_7h3_cr0ss_s173_scr1p71ng}
+
+
+# SNOW / Stegnography
+### 100 point | 174 solve
+
+Description :
+```
+Snow & Snow everywhere , can you help me to find the flag ?
+Flag Format :- secarmy{flag}
+```
+
+Solution :
+
+just run command
+```
+./snow/snow -C Snow\ Is\ EveryWhere.txt
+echo "c2VjYXJteXtDbGVhcl9UaGVfU25vd30=" | base64 -d
+```
+
+flag : secarmy{Clear_The_Snow}
+
+# B1n_Bas1c / Starters
+### 10 point | 457 solve
+
+Description :
+```
+Welcome to the battlefield warrior ! More power to you ;)
+Flag Format :- secarmy{flag}
+```
+
+Solution :
+
+just convert , bin to string. i use https://codebeautify.org/binary-string-converter
+
+
+<img src="/images/christctf/2020-02-16-210938_666x571_scrot.png" />
+
+
+flag : secarmy{b1nary_is_c00l}
+
+# Go Emojis / Starters
+### 20 point | 215 solve
+
+Description :
+```
+Here's official server of SECARMY let's see if you can find the flag :)
+Server Link : https://discord.gg/AMvR2WW
+```
+
+Solution :
+
+just take a look on Go emoji
+
+<img src="/images/christctf/2020-02-16-211239_358x76_scrot.png" />
+
+flag : secarmy{g0_ln_hs_the_flag}
+
+# Welcome / Starters
+### 30 point | 112 solve
+
+Description :
+```
+Welcome on the board ! Know about us and get your flag
+Flag Format : secarmy{flag}
+```
+
+Solution :
+
+flag on http://178.128.174.25/about
+
+
+<img src="/images/christctf/2020-02-16-211548_630x608_scrot.png" />
+
+flag : secarmy{All_H@1L_CHR1ST}
+
+# DecodeM3 / Forensics
+### 100 point | 111 solve
+
+Description :
+```
+Enjoy the audio and hunt for the flag ! Fun hearing >3.
+Flag Format :- secarmy{flag}
+```
+
+Solution :
+i use this website : https://morsecode.world/international/decoder/audio-decoder-adaptive.html
+
+<img src="/images/christctf/0.png"/>
+
+flag : secarmy{M0RSEDEC0DED}
+
+# Dive Deep ! / Forensics
+### 500 point | 3 solve
+
+Description :
+```
+Are you good at forensics? can we test you ?
+Dive in :- https://drive.google.com/file/d/1gVnPf5axFovFcl-arFZu39dE-qsDmR5s/view?usp=sharing
+extract the real flag, its easy.
+Flag Format : secarmy{}
+```
+
+Solution :
+
+import .ova file to virtualbox , and set
+MAC Address Policy : ```Generate new MAC addresses fro all network adapters```
+
+Reset password using grub , press ```e```
+
+
+<img src="/images/christctf/2020-02-16-212757_648x468_scrot.png"/>
+
+and set the configuration like this
+
+<img src="/images/christctf/2020-02-16-212926_646x472_scrot.png"/>
+
+and you will get root
+
+<img src="/images/christctf/2020-02-16-213034_335x117_scrot.png"/>
+
+don't forget to reset root password , and restart
+
+<img src="/images/christctf/2020-02-16-213208_475x197_scrot.png"/>
+
+now i use testdisk command
+```
+testdisk /dev/sda
+```
+
+<img src="/images/christctf/2020-02-16-213328_338x121_scrot.png"/>
+
+and select
+
+<img src="/images/christctf/2020-02-16-213431_386x211_scrot.png" />
+
+and select analyse
+
+<img src="/images/christctf/2020-02-16-213529_539x141_scrot.png" />
+
+
+<img src="/images/christctf/2020-02-16-213649_494x428_scrot.png" />
+
+<img src="/images/christctf/2020-02-16-213730_427x139_scrot.png" />
+
+choose ```c``` to copy file to working directory
+
+<img  src="/images/christctf/2020-02-16-213840_441x170_scrot.png" />
+
+go to root , and install apache2 webserver and ngrok for port forwarding
+
+<img src="/images/christctf/2020-02-16-214001_329x62_scrot.png" />
+
+
+<img src="/images/christctf/2020-02-16-214042_542x153_scrot.png" />
+
+after that , just download the file using ngrok url. now we have to crack Flag.zip , i use fcrackzip to crack it
+
+<img src="/images/christctf/2020-02-16-214704_464x94_scrot.png" />
+
+we need to fix the signature file
+
+<img src="/images/christctf/2020-02-16-214835_404x391_scrot.png" />
+
+i use ```hexeditor```
+
+<img src="/images/christctf/2020-02-16-215049_379x111_scrot.png" />
+
+now we got
+
+<img src="/images/christctf/2020-02-16-215200_405x97_scrot.png" />
+
+i use steghide to extract the real flag , with password -blank-
+
+<img src="/images/christctf/2020-02-16-215500_396x98_scrot.png" />
+
+now we have to crack flag.zip using ```fcrackzip```
+
+<img src="/images/christctf/2020-02-16-215605_447x102_scrot.png" />
+
+just unzip ```flag.zip``` using ```123456``` as the password and we get the flag
+
+<img src="/images/christctf/2020-02-16-215743_349x198_scrot.png" />
+
+flag : secarmy{th4t_w4$_3asy}
+
+# SEC++ / Programming
+### 90 point | 169 solve
+
+Description :
+```
+Oi! h0p3 y0u $t1ll r3m3mb3r C++! d0n't y@ ? ;)
+Author : Umair9747
+SECARMY{cpp_1s_TH3_W@Y_T0_G0}
+Flag format :- secarmy{flag}
+```
+
+Solution :
+we are given a C++ source code
+
+{% highlight C++ %}
+
+class sec{
+    public:
+    void army(char b[40]){
+        for(int i=0;i<strlen(b);i++){
+            if(isupper(b[i])){
+                b[i]=tolower(b[i]);
+            }
+            if(islower(b[i])){
+                b[i]=toupper(b[i]);
+                b[9]='$';
+            }
+            if(isdigit(b[i])){
+                b[i]='%';
+            }
+            if(b[i]=='%'){
+                b[i]=b[i-1];
+                b[24-1]='0';
+                if(isupper(b[i])){
+                    b[i]=b[i-1];
+                }
+            }
+        }
+        for(int i=0;i<strlen(b);i++){
+              if(isupper(b[i])){
+                   b[i]=tolower(b[i]);
+              }
+              b[13]='e';
+              if(b[i]=='t'){
+                  b[i]=tolower(b[i]);
+              }
+              if(b[i]=='s'){
+                  b[i-1]=b[i];
+              }
+              if(b[i]=='p'){
+                  b[i]=b[11];
+              }
+              if(b[i]=='T'){
+                  b[i]='+';
+              }
+              b[8]='1';
+        }
+                      b[11]='7';
+        std::cout<<b;
+}
+};
+{% endhighlight %}
+
+
+just fix a little bit
+
+{% highlight C++ %}
+#include <iostream>
+#include <cstring>
+
+class sec{
+    public:
+    void army(char b[40]){
+        for(int i=0;i<strlen(b);i++){
+            if(isupper(b[i])){
+                b[i]=tolower(b[i]);
+            }
+            if(islower(b[i])){
+                b[i]=toupper(b[i]);
+                b[9]='$';
+            }
+            if(isdigit(b[i])){
+                b[i]='%';
+            }
+            if(b[i]=='%'){
+                b[i]=b[i-1];
+                b[24-1]='0';
+                if(isupper(b[i])){
+                    b[i]=b[i-1];
+                }
+            }
+        }
+        for(int i=0;i<strlen(b);i++){
+              if(isupper(b[i])){
+                   b[i]=tolower(b[i]);
+              }
+              b[13]='e';
+              if(b[i]=='t'){
+                  b[i]=tolower(b[i]);
+              }
+              if(b[i]=='s'){
+                  b[i-1]=b[i];
+              }
+              if(b[i]=='p'){
+                  b[i]=b[11];
+              }
+              if(b[i]=='T'){
+                  b[i]='+';
+              }
+              b[8]='1';
+        }
+                      b[11]='7';
+        std::cout<<b;
+}
+};
+
+
+int main(){
+  char x[40] = "SECARMY{cpp_1s_TH3_W@Y_T0_G0}";
+  sec o;
+  o.army(x);
+
+}
+
+{% endhighlight %}
+
+
+compile and run it
+
+<img src="/images/christctf/2020-02-16-220821_358x93_scrot.png" />
+
+flag : secarmy{1$_7_e_thh_w@y_00_gg}
+
+
+# Power it Up ! / Programming
+### 100 point | 94 solve
+
+Description :
+```
+It's a headache to debug this piece of Powershell script .
+Help me out to find the output & the flag is all yours ;)
+Flag Format :- secarmy{flag}
+```
+
+Solution :
+
+we got ```challenge.txt```
+```
+$a = "Null"
+$b = "0x00"
+$c = "0x00" -in $a
+$d = "null" -ge $b
+$e = ($d -eq $c) -or ($a -eq $b)
+$f = ($d -eq $c) -xor ($a -eq $b)
+if(($d -eq $c) -or ($a -eq $b)) {$e} else {$f}
+```
+i use this website https://tio.run/#powershell , just compile it
+and got the flag
+
+flag : secarmy{false}
+
+# SUM_IT_UP / Crypto
+### 70 point | 67 solve
+
+Description :
+```
+My newbie scripting friend just got fooled by one of his friend and the message has been hidden using Powershell , if you help him to understand, I hope he will provide you the flag.
+Warning: You might be fooled !
+Flag Format:- secarmy{flag}
+```
+
+Solution :
+
+we are given flag.txt
+{% highlight powershell %}
+
+if(D642C>JL#__E6? -eq pvcure) {"flag"}
+
+{% endhighlight %}
+
+i use https://cryptii.com/pipes/caesar-cipher to decode it.
+
+<img src="/images/christctf/2020-02-16-221945_1225x282_scrot.png" />
+
+and the last part
+
+<img src="/images/christctf/2020-02-16-222046_1143x258_scrot.png" />
+
+flag : secarmy{R00tencipher}
+
+# Nothingness / Crypto
+### 100 point | 11 solve
+
+Description :
+
+```
+Life is although void , but SECARMY can help you out , hope you get it >3.
+Flag Format:- secarmy{flag}
+```
+
+Solution :
+
+i use this website https://cryptii.com/pipes/nihilist-cipher
+set separator to <space> and set SECARMY as the key
+
+<img src='/images/christctf/2020-02-16-223149_1124x352_scrot.png' />
+
+flag : secarmy{thekeytopoints}
+
+# Unit3d_C0d3 / Crypto
+### 100 point | 125 solve
+
+Description :
+```
+We unite to code .
+Flag Format:- secarmy{flag}
+```
+
+Solution :
+
+we are given ```flag.txt```
+```
+&#x73; &#x65; &#x63; &#x61; &#x72;
+&#x6d; &#x79; &#x7b; &#x49; &#x5f;
+&#x6c; &#x30; &#x76; &#x65; &#x5f;
+&#x55; &#x6e; &#x69; &#x63; &#x30;
+&#x64; &#x65; &#x0; &#x7d;
+```
+
+i use this website https://www.url-encode-decode.com/
+
+<img src="/images/christctf/2020-02-16-223749_399x93_scrot.png" />
+
+flag : secarmy{I_l0ve_Unic0de}
+
+
+# Old School / Crypto
+### 100 point | 242 solve
+
+Description :
+```
+Hope the name is enough for you
+Flag Format :- secarmy{flag}
+```
+
+Solution :
+
+we are given a file ```ct.txt```
+```
+01001101 01010100 01000001 01110111 01001001 01000100 01000101 01111000 01001101 01010011 01000001 01111000 01001101 01010100 01100011 01100111 01001111 01010100 01100111 01100111 01001101 01010100 01000001 00110100 01001001 01000100 01000101 01110111 01001101 01010011 01000001 00110101 01001110 01111001 01000001 01111000 01001101 01000100 01100111 01100111 01001101 01010100 01000001 01111010 01001001 01000100 01000101 01111000 01001101 01010011 01000001 01111000 01001101 01010100 01010001 01100111 01001101 01010100 01000001 00110001 01001001 01000100 01000101 01111000 01001110 01101001 01000001 01111000 01001101 01000100 01010001 01100111 01001101 01010100 01000001 00110101 01001001 01000100 01000101 01111000 01001110 01010001 00111101 00111101
+```
+
+just convert it to string and we will get
+
+<img src="/images/christctf/2020-02-16-225014_1135x295_scrot.png" />
+
+and decode the result with base64
+
+<img src="/images/christctf/2020-02-16-225122_478x59_scrot.png" />
+
+and decode again with decimal
+
+<img src="/images/christctf/2020-02-16-225213_1080x264_scrot.png" />
+
+flag : secarmy{doublealgorithms}
+
+# Goodbye / Goodbye
+### 10 point | 50 solve
+
+Description :
+```
+Hope you enjoyed it >3.
+Do not forget to provide us a valuable feedback
+https://forms.gle/gUNpXfvfstiwM3269
+Goodbye !
+
+```
+
+Solution :
+
+just fill the form and you will get the flag
+
+# Introduction / Welcome
+### 2 point | 447 sove
+
+Description :
+```
+We know you all are the smartest & sweetest beings of the universe , Do not hesitate to introduce yourself >3.
+. https://forms.gle/Vy9A2pyaAbWrXuae6
+```
+
+Solution :
+
+just fill the form and you will get the flag
