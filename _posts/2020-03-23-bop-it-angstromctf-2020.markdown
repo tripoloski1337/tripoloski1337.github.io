@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Writeup bop-it angstrom ctf 2020"
+title:  "nullbyte poisoning angstrom2020 bop-it writeup"
 date:   2020-03-23 #13:52:01
 categories: ctf
 description: this article explains about my writeup.
