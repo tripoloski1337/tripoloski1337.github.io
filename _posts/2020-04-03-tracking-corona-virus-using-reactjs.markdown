@@ -273,4 +273,4 @@ and this is our website will look like
 
 <img src="/images/2020-04-03-220939_1365x683_scrot.png" />
 
-you can download my code [here](2020-04-03-220939_1365x683_scrot.png)
+you can download my code [here](https://github.com/tripoloski1337/covid19-reactjs)
