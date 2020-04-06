@@ -9,9 +9,11 @@ tags: ctf writeup
 
 <img src="/images/virseccon2020/logo.png" />
 
-after competing with many ctf teams throughout the world my team `securisecctf` managed to secure `17th` place out of `1526` team
+after competing with many ctf teams throughout the world my team `securisecctf` managed to secure `17th` place out of `2513` team
 
 <img src="/images/virseccon2020/2020-04-05-082900_1364x713_scrot.png" />
+
+<img src="/images/virseccon2020/cert.jpg" />
 
 in this post i will explain challenge that i solve by my self  , all the pwn challenge , some crypto and scripting . i can't get some flag because the service is already down
 
