@@ -7,7 +7,7 @@ description: > # this means to ignore newlines until "show_exerpts:"
     indonesia , currently living in indonesia
 show_excerpts: false # set to true to show excerpts on the homepage
 
-paginate: 5
+paginate: 20
 paginate_path: "/blog/page:num/"
 
 tag_permalink_style: pretty
