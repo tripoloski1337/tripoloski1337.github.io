@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Exploiting Format String bug"
-date:   2020-06-07
+date:   2020-06-11
 categories: ctf
 description: Basic format string bug
 tags: ctf-writeup hackthebox
