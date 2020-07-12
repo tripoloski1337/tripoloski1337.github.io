@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Padding Oracle Attack AES ECB"
+title: "Attacking AES ECB"
 date: 2020-07-12
 categories: crypto
 description: Attacking AES ECB
@@ -8,7 +8,7 @@ description: Attacking AES ECB
 
 ## Explanation
 
-in this post, i will explain how we can doing padding oracle attack on AES ECB, according to this diagram: <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/ECB_encryption.svg/601px-ECB_encryption.svg.png" style="background:white"/>
+in this post, i will explain how we can attacking AES ECB, according to this diagram: <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/ECB_encryption.svg/601px-ECB_encryption.svg.png" style="background:white"/>
 
 if we use the same key to encrypt a plaintext, we can actual get the same cipher.
 in aes, there's 16 byte each block. for example:
