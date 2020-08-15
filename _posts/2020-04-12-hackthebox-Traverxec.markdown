@@ -66,13 +66,13 @@ several directory
 	icons
 	logs
 
-the most intressting thing is conf folder , so i check conf directory and found two
+the most interesting thing is conf folder , so i check conf directory and found two
 file
 
 	mimes
 	nhttpd.conf
 
-nhttpd? hmm okay it's looks intressting , so lets open it
+nhttpd? hmm okay it's looks interesting , so lets open it
 
 	# MAIN [MANDATORY]
 
