@@ -17,16 +17,16 @@ learn hacking
 # Scanning
 
 for the first time, we have to gathering more information about this machine
-so i use nmap to see whats port is open and whats service is it.
+so i use nmap to see what ports is open and what services they are.
 
 <img src="/images/htb/Traverxec/2019-12-09-222804_511x170_scrot.png">
 
-this machine running http (80) and ssh (22) ,after that i open the web page on my browser
+this machine running http (80) and ssh (22) ,so that i open the web page on my browser
 and this is the web page
 
 <img src="/images/htb/Traverxec/2019-12-09-223134_1288x562_scrot.png" style="width: 500px;">
 
-it's look like a normal static website, so i try to accessing /admin and this is what i got
+it looks like a normal static website, so i try to accessing /admin and this is what i got
 
 <img src="/images/htb/Traverxec/2019-12-09-223400_347x123_scrot.png">
 
@@ -45,7 +45,7 @@ r.sendline(payload)
 r.interactive()
 {% endhighlight %}
 
-before running the script i listenning to port 1337 from my machine
+before running the script i listening to port 1337 from my machine
 
 <img src="/images/htb/Traverxec/2019-12-09-224215_356x33_scrot.png">
 
@@ -53,7 +53,7 @@ and run the exploit
 
 <img src="/images/htb/Traverxec/2019-12-09-225200_443x154_scrot.png">
 
-after running the exploit , check the listenning terminal again , and we got
+after running the exploit , check the listening terminal again , and we got
 our shell
 
 <img src="/images/htb/Traverxec/2019-12-09-225321_641x156_scrot.png">
@@ -72,7 +72,7 @@ file
 	mimes
 	nhttpd.conf
 
-nhttpd? hmm okay it's looks interesting , so lets open it
+nhttpd? hmm okay it looks interesting , so let's open it
 
 	# MAIN [MANDATORY]
 
@@ -108,8 +108,8 @@ nhttpd? hmm okay it's looks interesting , so lets open it
 
 # Cracking htpasswd
 
-as you can see , there is htpasswd inside /var/nostromo/conf/ and some
-HOMEDIRS configuration , lets see what inside htpasswd
+there is htpasswd inside /var/nostromo/conf/ and some
+HOMEDIRS configuration , let's see what inside htpasswd
 
 	david:$1$e7NfNpNi$A6nCwOTqrNR2oDuIKirRZ/
 
@@ -117,9 +117,9 @@ the password is encrypted , so i check the hash using hashid
 
 <img src="/images/htb/Traverxec/2019-12-09-230146_567x75_scrot.png">
 
-well okay , lets use hashcat to crack it , after reading the example hash from
+well okay , let's use hashcat to crack it , after reading the example hash from
 hashcat documentation [here](https://hashcat.net/wiki/doku.php?id=example_hashes)
-i got information about the hash-mode , it's 500 so lets crack it using rockyou wordlist
+i got information about the hash-mode , it's 500 so let's crack it using rockyou wordlist
 you can download the wordlist [here](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=2ahUKEwj7gJXN-KjmAhXFR30KHQRKBXcQFjAAegQIARAB&url=https%3A%2F%2Fgithub.com%2Fbrannondorsey%2Fnaive-hashcat%2Freleases%2Fdownload%2Fdata%2Frockyou.txt&usg=AOvVaw3snAERl1mU6Ccr4WFEazBd)
 
 <img src="/images/htb/Traverxec/2019-12-09-230819_641x46_scrot.png">
@@ -133,13 +133,13 @@ okay good , we got the password. but this is not the ssh password , after enumer
 
 	http://www.nazgul.ch/~hacki/
 
-well , lets try to open on the machine.
+well , let's try to open on the machine.
 http://10.10.10.165/~david/
 
 <img src="/images/htb/Traverxec/2019-12-09-231221_1301x560_scrot.png" style="width: 500px;">
 
-another web page ? okay. after enumerating more , i end up trying to accessing /home/david
-via CVE-2019-16278 and i got nothing but , i remember about our homedirs , there is
+another web page ? okay. after enumerating more, i end up trying to accessing /home/david
+via CVE-2019-16278 and i got nothing but , i remember about our homedirs, there is
 a configuration like this :
 
 	homedirs		/home
@@ -149,7 +149,7 @@ so i asume public_www must be exist inside /home/david/ so when i try to access 
 
 <img src="/images/htb/Traverxec/2019-12-09-231902_166x88_scrot.png">
 
-a directory called protected-file-area , and it's contain a file
+a directory called protected-file-area, and it's contain a file
 
 	backup-ssh-identity-files.tgz
 
@@ -161,26 +161,26 @@ and i got a prompt like this
 
 <img src="/images/htb/Traverxec/2019-12-09-232159_573x158_scrot.png">
 
-so let's use david as our username and Nowonly4me as our password
+so let's use `david` as our username and `Nowonly4me` as our password
 and we are in
 
 <img src="/images/htb/Traverxec/2019-12-09-232309_854x194_scrot.png">
 
 # Crack Rsa Private Key
 
-after download the file , i got .ssh directory and some files
+after download the file, i got `.ssh` directory and some files
 
 	authorized_keys
 	id_rsa
 	id_rsa.pub
 
-okay , from now we got a private key right ? so lets crack the private key
-to get the passphrase , i use ssh2john and pipe it to a file , you can download ssh2john [here](https://github.com/magnumripper/JohnTheRipper/blob/bleeding-jumbo/run/ssh2john.py)
-and now lets crack it
+from now we got a private key right ? so let's crack the private key
+to get the passphrase, i use ssh2john and pipe it to a file, you can download ssh2john [here](https://github.com/magnumripper/JohnTheRipper/blob/bleeding-jumbo/run/ssh2john.py)
+and now let's crack it
 
 <img src="/images/htb/Traverxec/2019-12-09-233106_817x194_scrot.png">
 
-nice , we got the passphrase , now lets try to login via ssh as david
+nice, we got the passphrase, now lets try to login via ssh as david
 
 <img src="/images/htb/Traverxec/2019-12-09-233259_878x133_scrot.png">
 
@@ -204,17 +204,17 @@ and this is server-stats.sh
 	echo "Last 5 journal log lines:"
 	/usr/bin/sudo /usr/bin/journalctl -n5 -unostromo.service | /usr/bin/cat
 
-and this is what i got , if i run the script
+and this is what i got, if i run the script
 
 <img src="/images/htb/Traverxec/2019-12-09-233729_640x250_scrot.png">
 
-it's look like journalctl running as root , so it possible to us to escalate via
+it looks like journalctl running as root, so it possible to us to escalate via
 journalctl.
 
 # Privilege Escalation
 after reading on [here](https://gtfobins.github.io/gtfobins/journalctl/)
-i found that journalctl is using less as default pager , so if the size of our terminal
-is too small to load the output it will pipe to less . firstly we copy last line of server-stats.sh and remove pipe , like this
+i found that journalctl is using less as default pager, so if the size of our terminal
+is too small to load the output it will pipe to less. firstly i copied last line of server-stats.sh and remove pipe , like this
 
 	/usr/bin/sudo /usr/bin/journalctl -n5 -unostromo.service
 
