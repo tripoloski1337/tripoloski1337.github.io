@@ -32,11 +32,11 @@ The `main` function is just look simple, puts a string and then call other funct
 
 <img src="/images/ret2csu/main.png" />
 
-the `pwnme` function also look simple, just puts some string, and it will wait for user input 
+the `pwnme` function also looks simple, just puts a few strings, and it will wait for user input 
 
 <img src="/images/ret2csu/pwnme.png" />
 
-we have buffer oveflow inside `pwnme` function
+we have buffer overflow inside `pwnme` function
 
 <img src="/images/ret2csu/disas_pwnme.png" />
 
@@ -70,7 +70,9 @@ and, we have to set our `%rbp` to `1` so we can pass this test
     00400891  cmp     rbp, rbx
     00400894  jne     0x400880
 
-particularly, to avoid sigsev from `call    qword [r12+rbx*8]` we need a pointer to a function, 
+Luckily, we can controll the value of `%rbx` and `%rbp` from our first gadget, we can set 
+`%rbp` to `1` so that after `add     rbx, 0x1` they will be equal. 
+to avoid sigsev from `call    qword [r12+rbx*8]` we need a pointer to a function, 
 and the pointer should point to a function that will not change our `%rdx` register, after the function 
 being called we can just call `ret2win` to get the flag, we can use `_init` function because this 
 function will not change our `%rdx` register
