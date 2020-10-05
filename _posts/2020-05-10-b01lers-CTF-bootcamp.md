@@ -1,6 +1,6 @@
 ---           
 layout: post
-title:  "b01lers CTF bootcamp"
+title:  "Writeup b01lers CTF bootcamp 2020"
 date:   2020-10-05
 categories: ctf
 description: Writeup b01lers CTF bootcamp 
