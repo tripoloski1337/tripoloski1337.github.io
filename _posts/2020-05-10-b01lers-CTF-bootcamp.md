@@ -41,7 +41,7 @@ that I solve during the competition.
 ### Solution:
 
 this is a simple buffer overflow challenge, we need to pass the if condition, we have to set 
-%rax and %rbx to 0x0.
+`%rax` and `%rbx` to `0x0`.
 {% highlight python %}
 from pwn import *
 #r = process("./metacortex-72ec7dee20d0b191fe14dc2480bd3f43")
@@ -160,7 +160,8 @@ int main() {
 
 
 
-this is a shellcode challenge, we can only write 16byte shellcode to the `.bss`. in order to send our full shellcode we can 
+this is a shellcode challenge I am the second people to solve this challenge, 
+we can only write 16byte shellcode to the `.bss`. in order to send our full shellcode we can 
 write a shellcode that can read from stdin and after that we send our shellcode to the last part of shellcode 
 
 {% highlight python %}
@@ -188,7 +189,7 @@ FLAG: flag{cust0m_sh3llc0d1ng_c4n_b33_c00l}
 
 ### Solution:
 
-we can create a rop to set the address of "/bin/sh" to `%rdi` and call system from plt 
+I am the second people to solve this challenge, we can create a rop to set the address of "/bin/sh" to `%rdi` and call `system` from plt 
 
 {% highlight python %}
 from pwn import *
