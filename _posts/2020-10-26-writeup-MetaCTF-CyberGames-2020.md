@@ -11,7 +11,18 @@ tags: ctf-writeup
 
 25 Oktober 2020, my team CCUG got 19th place out of 1017 participants for the student category and 30th place out of 1587 participants overall category. 
 
-## Executor-arm64
+
+## Pwn
+<ul style="line-height: 10px;">
+    <li> <a href="#executorarm64">Executor-arm64</a> </li>
+    <li> <a href="#Bafflingbuff2">Baffling Buffer 2 </a> </li>
+    <li> <a href="#mininghero">mining hero</a> </li>
+    <li> <a href="#Bafflingbuff1">Baffling Buffer 1</a> </li>
+    <li> <a href="#Bafflingbuff0">Baffling Buffer 0 </a> </li>
+</ul>
+
+
+<h1 id="executorarm64">Executor-arm64</h1>
 
 ### Description:
     
@@ -300,7 +311,7 @@ if __name__ == "__main__":
 <img src="/images/MetaCTF2020/executorflag.png"/>
 FLAG: MetaCTF{M1ght7_sh3llc0d3r5_0f_m4n7_4rch1t3ctur35}
 
-## Baffling Buffer 2
+<h1 id="Bafflingbuff2">Baffling Buffer 2</h1>
 
 ### Description:
 
@@ -436,7 +447,7 @@ if __name__ == "__main__":
 
 FLAG: MetaCTF{Its_never_a_good_idea_t0_copy_code_onl1n3}
 
-## mining hero
+<h1 id="mininghero">mining hero</h1>
 
 ### Description:
 
@@ -728,7 +739,7 @@ if __name__ == "__main__":
 
 FLAG: MetaCTF{i_W0N_w!thOUt_CHEat!nG!!}
 
-## Baffling Buffer 1
+<h1 id="Bafflingbuff1">Baffling Buffer 1</h1>
 
 ### Description: 
 
@@ -780,7 +791,7 @@ if __name__ == "__main__":
 
 FLAG: MetaCTF{c_strings_are_the_best_strings}
 
-## Baffling Buffer 0
+<h1 id="Bafflingbuff0">Baffling Buffer 0</h1>
 
 ### Description:
 
