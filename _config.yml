@@ -36,11 +36,11 @@ dash:
       color: yellow
 
 # Build settings
-theme: jekyll-dash
+# theme: jekyll-dash
 
 plugins:
  - jekyll-feed
- - jekyll-seo-tag
  - jekyll-paginate
- - liquid-md5
+ - jekyll-seo-tag
+#  - liquid-md5
 #  - jekyll/tagging
