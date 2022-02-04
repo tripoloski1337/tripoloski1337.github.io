@@ -1,6 +1,6 @@
 ---           
 layout: post
-title:  "Hiding Malicious Code in Solidity"
+title:  "Hiding Malicious Code in Smartcontract Solidity"
 date:   2022-02-04
 categories: smartcontract
 description: smartcontract, blockchain, ether, go go go!!
