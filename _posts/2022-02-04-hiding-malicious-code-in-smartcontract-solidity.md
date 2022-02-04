@@ -9,9 +9,9 @@ tags: smartcontract
 
 # Intro
 
-What is solidity? Solidity is an object-oriented, high-level language for implementing smart contracts. Smart contracts are programs which govern the behaviour of accounts within the Ethereum state.
+What is solidity? Solidity is an object-oriented, high-level language for implementing smart contracts. Smartcontracts are programs which govern the behaviour of accounts within the Ethereum state.
 
-Why did we need to hide our malicious code? this is because. anyone can see your smartcontract source code by using etherscan it allows anyone to read your smartcontract source code including your malicious code, Since everyone can see your code, so you have to hide your malicious code to prevent someone read your malicious code.
+Why did we need to hide our malicious code? this is because anyone can see your smartcontract source code by using etherscan including your malicious code, Since everyone can see your code, so you have to hide your malicious code to prevent someone read your malicious code.
 
 <img src="/images/hidingmalcodesol/etherscan.png">
 
