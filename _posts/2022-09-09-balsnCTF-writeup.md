@@ -10,7 +10,7 @@ tags: CTF
 <img src="/images/balsnctf2022/logo.png" />
 
 I played balsnCTF last week and solve several challenge, in this post I will only cover 
-Pwn and some smartcontract challenge
+Pwn and smartcontract challenge
 
 List Challenge:
 <ul>
@@ -192,7 +192,7 @@ Author: ysc
 
 ### Analysis the smartcontract file
 
-after analysis several I found that we have to reveal the censored value from contract.cairo file
+after analysis I found that we have to reveal the censored value from contract.cairo file
 {% highlight cairo %}
 # Declare this file as a StarkNet contract.
 %lang starknet
