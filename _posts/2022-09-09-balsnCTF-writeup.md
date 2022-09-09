@@ -3,7 +3,7 @@ layout: post
 title:  "Balsn CTF 2022 Writeup"
 date:   2022-09-09
 categories: ctf
-description: from reversing cairo bytecode to bof lead to ssrf
+description: from reversing cairo bytecode to buffer overflow lead to ssrf
 tags: CTF
 ---
 
