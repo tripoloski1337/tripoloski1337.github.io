@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Modprobe overwrite"
-date:   2022-12-23
+date:   2023-01-06
 categories: ctf kernelexploit
 description: modprobe overwrite - kernel exploitation 
 tags: tip-binary ctf
