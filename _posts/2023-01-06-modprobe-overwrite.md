@@ -20,7 +20,7 @@ Since the path of modprobe is stored under the symbol `modprobe_path` in the ker
 
 # Exploitation
 
-in this post I will use a CTF challenge from Cyber Jawar Final 2022 called `Nakiri Ayame`, since the challenge require a kernel leak and this can be achieved by leaking the kernel via stacktrace or bruteforce the address I disabled the kaslr to make it esier :v (tawa penuh ke noob-an). Since we have arbitrary address write (AAW) primitive and address of the modprobe_path symbol, We can overwrite `modprobe_path` to malicious shellscript/binary so the binary/shellscript will executed as root
+in this post I will use a CTF challenge from Cyber Jawar Final 2022 called `Nakiri Ayame`, since the challenge require a kernel leak and this can be achieved by leaking the kernel via stacktrace or bruteforce the address I disabled the kaslr to make it easier :v (tawa penuh ke noob-an). Since we have arbitrary address write (AAW) primitive and address of the modprobe_path symbol, We can overwrite `modprobe_path` to malicious shellscript/binary so the binary/shellscript will executed as root
 
 the kernel module will be installed at "/dev/ayame". we can interact with the kernel module with `ioctl()` and value `0x1337`.
 
