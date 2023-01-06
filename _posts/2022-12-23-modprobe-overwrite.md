@@ -39,7 +39,7 @@ void open_dev_vuln(void){
         write(1,"[+] device opened\n",18);
     }
 }
-{% end highlight %}
+{% endhighlight %}
 
 then we need to get the address of `modprobe_path` symbol, we can use this command to read the address since I disabled the kaslr protection :v 
 
