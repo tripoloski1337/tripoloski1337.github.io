@@ -2,9 +2,9 @@ title: tripoloski blog
 author: arsalan
 email: arsalan.dp@gmail.com
 description: > # this means to ignore newlines until "show_exerpts:"
-    Hello i am arsalan. information system student, i blog about cyber security,
-    ctf writeup , web development , and more about tech. born and raised in
-    indonesia , currently living in indonesia
+    Hello I am arsalan. information system student, I blog about cyber security,
+    ctf writeup, web development, and more about tech. born and raised in
+    indonesia, currently living in indonesia
 show_excerpts: false # set to true to show excerpts on the homepage
 
 paginate: 20
@@ -36,7 +36,8 @@ dash:
       color: yellow
 
 # Build settings
-theme: jekyll-dash
+# theme: jekyll-dash
+remote_theme: bitbrain/jekyll-dash@main
 
 plugins:
  - jekyll-feed
