@@ -41,7 +41,7 @@ void open_dev_vuln(void){
 }
 {% endhighlight %}
 
-then we need to get the address of `modprobe_path` symbol, we can use this command to read the address since I disabled the kaslr protection :v 
+then we need to get the address of `modprobe_path` symbol, we can use command `cat /proc/kallsyms | grep modprobe_path` to read the address since I disabled the kaslr protection :v 
 
     ffffffff82445b60 D modprobe_path
 
