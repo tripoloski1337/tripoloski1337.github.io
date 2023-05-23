@@ -7,6 +7,9 @@ description: Did you know what is riscv?
 tags: tip-binary ctf
 ---
 
+<img src="https://pbs.twimg.com/media/Ft4h-ZsaAAA41pO?format=jpg&name=4096x4096"/>
+
+
 # Background
 On friday 19 May 2023, I participate on greyCTF 2023 and solved several challenge. In this post I will only cover a challenge called `ropv`, since this is my first time exploiting RISC-V 64 architecture. It might be useful note for me or someone in order create the ropchain exploit. 
 
@@ -21,7 +24,9 @@ The project was originated in 2010 by researchers in the Computer Science Divisi
 
 # Dynamic Analysis
 
-Since my binary ninja can't decompile the riscv64 elf binary neither my ida. So I started by doing some dynamic gdb stuff and blackbox.
+Since my binary ninja can't decompile the riscv64 elf binary neither my ida. So I started by doing some dynamic gdb stuff and blackbox. We can use qemu to emulate the riscv64 and gdb-multiarch to debug the binary remotely
+    gdb-multiarch -q ./ropv -ex 'target remote localhost:1235'
+    qemu-riscv64 -g 1235 ./ropv
 I found that we have format string vulnerability on the first input and buffer overflow on the second input, So the plan is simple we can leak the variable address from the first index and leak the canary value from the third index 
 
 <img src="/images/ropv/first.png">
