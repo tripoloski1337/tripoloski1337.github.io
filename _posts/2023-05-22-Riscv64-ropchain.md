@@ -11,7 +11,7 @@ tags: tip-binary ctf
 
 
 # Background
-On friday 19 May 2023, I participate on greyCTF 2023 and solved several challenge. In this post I will only cover a challenge called `ropv`, since this is my first time exploiting RISC-V 64 architecture. It might be useful note for me or someone in order create the ropchain exploit. 
+On Friday, 19 May, 2023. I participate on greyCTF 2023 and solved several challenge. In this post I will only cover a challenge called `ropv`, since this is my first time exploiting RISC-V 64 architecture. It might be useful note for me or someone in order create the ropchain exploit. 
 
 # What is Riscv64?
 
@@ -24,14 +24,16 @@ The project was originated in 2010 by researchers in the Computer Science Divisi
 
 # Dynamic Analysis
 
-Since my binary ninja can't decompile the riscv64 elf binary neither my ida. So I started by doing some dynamic gdb stuff and blackbox. We can use qemu to emulate the riscv64 and gdb-multiarch to debug the binary remotely
+Since my Binary Ninja and IDA can't decompile the riscv64 elf binary. So I started by doing some dynamic gdb stuff and blackbox. We can use qemu to emulate the riscv64 and gdb-multiarch to debug the binary remotely
+
     gdb-multiarch -q ./ropv -ex 'target remote localhost:1235'
     qemu-riscv64 -g 1235 ./ropv
-I found that we have format string vulnerability on the first input and buffer overflow on the second input, So the plan is simple we can leak the variable address from the first index and leak the canary value from the third index 
+
+I found that we have a format string vulnerability on the first input and a buffer overflow on the second input, So the plan is simple we can leak the variable address from the first index and leak the canary value from the third index 
 
 <img src="/images/ropv/first.png">
 
-then we can overflow the second input and bypass the canary check so that we can control the %pc and craft a ropchain to call execve with `/bin/sh` as the first parameter. 
+then we can overflow the second input and bypass the canary check so that we can control the `%pc` register and craft a ropchain to call execve with `/bin/sh` as the first parameter. 
 
 # Exploitation
 
