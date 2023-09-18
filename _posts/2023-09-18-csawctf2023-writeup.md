@@ -39,7 +39,7 @@ In this challenge a binary is provided for further assessment. After analyzing t
 
 The binary has canary protection and I need to leak the canary value first. At this point I found out that the view function have arbitrary read memory which allowed an access to read the canary value from the binary as long we know the index of the canary value. 
 
-{% Highlight C %}
+{% highlight C %}
 int __cdecl view_account(int a1, int a2)
 {
   return printf("Index %d : %02x\n", a2, *(unsigned __int8 *)(a2 + a1));
@@ -48,7 +48,7 @@ int __cdecl view_account(int a1, int a2)
 
 Since the function leaked only 1 byte each time it gets called, we need to leak the canary which have 4 bytes length, then we can trigger the buffer overflow and overwrite the canary and `%eip` to `print_flag` which give us the flag we're looking. Here are the full exploit details of that challenge
 
-{% Highlight python %}
+{% highlight python %}
 from pwn import *
 
 r = process("./share/unlimited_subway")
@@ -141,7 +141,7 @@ if __name__ == "__main__":
 
 In this challenge we're given a binary that contains `use after free` vulnerability. The binary have a function called `secure_stuff` and it will encrypt the string before inserted to heap segment. But if we input data to key our input will not be encrypted.
 
-{% Highlight C %}
+{% highlight C %}
 __int64 __usercall set@<rax>(__int64 a1@<rbp>, __int64 a2@<rdi>, __int64 a3@<rsi>)
 {
   __int64 result; // rax
