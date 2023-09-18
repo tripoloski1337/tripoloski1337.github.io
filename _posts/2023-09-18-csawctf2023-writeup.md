@@ -123,7 +123,7 @@ if __name__ == "__main__":
     sys.exit(0)
 {% endhighlight %}
 
-<img src="/images/csaw2023/us2.png>
+<img src="/images/csaw2023/us2.png">
 
 ## Super Secure Heap
 
