@@ -67,7 +67,7 @@ input[name=csrf][value^=9]{
 }
 {% endhighlight %}
 
-Since there's CSP in configured, and we can only use `font-src`. So we can use `@font-face` and check if the unicode is in a specific range. For example.
+Since there's CSP in configured, So we can use `@font-face` and check if the unicode is in a specific range. For example.
 
 {% highlight html %}
 <style>
@@ -94,7 +94,7 @@ Since there's CSP in configured, and we can only use `font-src`. So we can use `
 <p id="sensitive-information">AB</p>htm
 {% endhighlight %} 
 
-Since the sensitive information is under `#sensitive-information` and we can control the CSS code, we can use unicode-range to check if specific ASCII codes are present in `#sensitive-information`. Based on the example above, the victim's browser will make requests to `http://attacker.example.com/?A` and `http://attacker.example.com/?B`.
+Since the sensitive information is under `#sensitive-information` and we can control the CSS code, we can use `unicode-range` to check if specific ASCII codes are present in `#sensitive-information`. Based on the example above, the victim's browser will make requests to `http://attacker.example.com/?A` and `http://attacker.example.com/?B`.
 
 We can specify all the character codes A-Z, a-z, and 0-9 using `@font-face`. This way, the victim's browser will check for every ASCII code and make a request to `http://attacker.example.com` for each character.
 
@@ -421,7 +421,7 @@ We can specify all the character codes A-Z, a-z, and 0-9 using `@font-face`. Thi
 
 {% endhighlight %}
 
-Not only to to steal sensitive information, but it can also be exploited to make HTTP requests using the victim's session or cookies. For example, if there's a GET URL, an attacker can use the following CSS code to make an HTTP GET request:
+Not only to steal sensitive information, but it can also be exploited to make HTTP requests using the victim's session or cookies. For example, if there's a GET URL, an attacker can use the following CSS code to make an HTTP GET request:
 
 {% highlight css %}
 @font-face {
@@ -444,7 +444,7 @@ The attacker’s listener will obtain all the information, but in a random seque
 
 <img src="/images/cssinjek/ngrok.png">
 
-Our next challenge is to sort the exfiltrated ASCII characters. Since this is a CTF challenge, they have already provided the logic for sorting the token, which makes it easier. However, in real-world scenarios, it would require more time to find the correct valid token.
+Our next challenge is to sort the exfiltrated ASCII characters. Since this is a CTF challenge, they have already provided the logic for sorting the token, which makes it easier. However, in real-world scenarios, it would require more effort to find the correct valid token.
 
 P.S.: This technique can only be used if the token does not contain duplicate ASCII characters.
 
