@@ -421,7 +421,7 @@ We can specify all the character codes A-Z, a-z, and 0-9 using `@font-face`. Thi
 
 {% endhighlight %}
 
-Not only to steal sensitive information, but it can also be exploited to make HTTP requests using the victim's session or cookies. For example, if there's a GET URL, an attacker can use the following CSS code to make an HTTP GET request:
+Not only to steal sensitive information, but it can also be exploited to make HTTP requests using the victim's session. For example, if there's a GET URL, an attacker can use the following CSS code to make an HTTP GET request:
 
 {% highlight css %}
 @font-face {
