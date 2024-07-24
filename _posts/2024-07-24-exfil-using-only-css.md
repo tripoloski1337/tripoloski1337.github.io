@@ -446,7 +446,6 @@ The attacker’s listener will obtain all the information, but in a random seque
 
 Our next challenge is to sort the exfiltrated ASCII characters. Since this is a CTF challenge, they have already provided the logic for sorting the token, which makes it easier. However, in real-world scenarios, it would require more effort to find the correct valid token.
 
-P.S.: This technique can only be used if the token does not contain duplicate ASCII characters.
 
 # Outro
 
