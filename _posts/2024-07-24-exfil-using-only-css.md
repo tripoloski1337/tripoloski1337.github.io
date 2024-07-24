@@ -24,7 +24,7 @@ As long as we are able to control the CSS code, the site should be vulnerable. B
 {% highlight html %}
 <link href="/assets/css/bootstrap.min.css" rel="stylesheet" />
 <link href="/assets/css/main.css" rel="stylesheet" />
-<link href="{{ cssFile }}" rel="stylesheet" />
+<link href="<cssFile>" rel="stylesheet" />
 {% endhighlight %}
 
 The CSP is set, but it allow us to use font-src 
@@ -37,7 +37,7 @@ Our goal is to steal the token from the admin page. Below is the HTML code where
 
 {% highlight html %}
 <div class="form-group">
-<p id="approvalToken" class="d-none">{{ approvalToken }}</p>
+<p id="approvalToken" class="d-none"> <approvalToken> </p>
 {% endhighlight %}
 
 Since the admin will always visit the page where we can control the CSS, our CSS will be rendered in the admin's browser.
@@ -445,6 +445,8 @@ The attacker’s listener will obtain all the information, but in a random seque
 <img src="/images/cssinjek/ngrok.png">
 
 Our next challenge is to sort the exfiltrated ASCII characters. Since this is a CTF challenge, they have already provided the logic for sorting the token, which makes it easier. However, in real-world scenarios, it would require more time to find the correct valid token.
+
+P.S.: This technique can only be used if the token does not contain duplicate ASCII characters.
 
 # Outro
 
